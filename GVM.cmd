@@ -1,6 +1,6 @@
 @echo off
 REM Copyright Andy Willis Licensed to IBM 
-REM Version 1.0.1
+REM Version 1.1
 if exist validatemefs.vbs del validatemefs.vbs
 if exist info.txt del info.txt
 if exist %USERPROFILE%\Downloads\validatemefs.vbs del %USERPROFILE%\Downloads\validatemefs.vbs
@@ -10,6 +10,11 @@ if exist %USERPROFILE%\Downloads\validatemefs.vbs copy %USERPROFILE%\Downloads\v
 if exist *inventory*.xls dir /b *inventory*.xls >info.txt
 if exist *inventory*.xlsx dir /b *inventory*.xlsx >>info.txt
 if exist *inventory*.csv dir /b *inventory*.csv >>info.txt
+Choice /M "Do you want to open the csv file? (Y/N)"
+IF ERRORLEVEL == 2 goto nocsv
+"C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe" validatemefs_*_REPORT.csv
+:nocsv
+
 goto Date
 :back
 for /f "delims=" %%D in ('dir *evidence* /a:d /b') do echo %%~fD >>info.txt
