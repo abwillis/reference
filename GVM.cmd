@@ -10,17 +10,16 @@ if exist %USERPROFILE%\Downloads\validatemefs.vbs copy %USERPROFILE%\Downloads\v
 if exist *inventory*.xls dir /b *inventory*.xls >info.txt
 if exist *inventory*.xlsx dir /b *inventory*.xlsx >>info.txt
 if exist *inventory*.csv dir /b *inventory*.csv >>info.txt
-Choice /M "Do you want to open the csv file? (Y/N)"
-IF ERRORLEVEL == 2 goto nocsv
-"C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe" validatemefs_*_REPORT.csv
-:nocsv
-
 goto Date
 :back
 for /f "delims=" %%D in ('dir *evidence* /a:d /b') do echo %%~fD >>info.txt
 REM dir /s/b *evidence* >>info.txt
 start notepad info.txt
 cscript validatemefs.vbs
+Choice /M "Do you want to open the csv file? (Y/N)"
+IF ERRORLEVEL == 2 goto nocsv
+"C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe" validatemefs_*_REPORT.csv
+:nocsv
 goto end
 
 :Date
