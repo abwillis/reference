@@ -1,8 +1,11 @@
-@REM Version 1.0 ECM csv Inventory cleanup
+@REM Version 1.5 ECM csv Inventory cleanup
 @echo off
+set filename=%1
+if [%1]==[] set /P filename=Enter filename 
+
 del newfile.csv
 del complete.csv
-for /f "skip=3 delims=*" %%a in (%1) do (
+for /f "skip=3 delims=*" %%a in (%filename%) do (
 echo %%a >>newfile.csv   
 )
 setlocal enableextensions enabledelayedexpansion
@@ -11,17 +14,17 @@ for /F "tokens=*" %%A in (newfile.csv) do (
 	set test=""
     for /F "tokens=2-7,21,26,* delims=;" %%a in (!LINE!) do (
 		for /F "tokens=6 delims=;" %%Z in ("%%i") do (
-			set row[8]=%%Z
+			set column[8]=%%Z
 		)
-        set row[0]=%%a
-        set row[1]=%%b
-        set row[2]=%%c
-        set row[3]=%%d
-        set row[4]=%%e
-        set row[5]=%%f
-		set row[6]=%%g
-		set row[7]=%%h
+        set column[0]=%%a
+        set column[1]=%%b
+        set column[2]=%%c
+        set column[3]=%%d
+        set column[4]=%%e
+        set column[5]=%%f
+		set column[6]=%%g
+		set column[7]=%%h
 )
-        echo !row[0]!;!row[1]!;!row[2]!;!row[3]!;!row[4]!;!row[5]!;!row[6]!;!row[7]!;!row[8]!;  >>complete.csv
+        echo !column[0]!;!column[1]!;!column[2]!;!column[3]!;!column[4]!;!column[5]!;!column[6]!;!column[7]!;!column[8]!;  >>complete.csv
 )
 endlocal
