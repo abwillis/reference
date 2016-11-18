@@ -48,6 +48,6 @@ for /F "tokens=*" %%A in (newfile.csv) do (
 )
 set /P Account=Account Name 
 ren Storage_%day%%month%%year%Inventory.csv %Account%_Storage_%day%%month%%year%_Inventory.csv
-IF EXIST "\Program Files (x86)\OpenOffice 4\program\scalc.exe" Start "\Program Files (x86)\OpenOffice 4\program\scalc.exe" %Account%_Storage_%day%%month%%year%_Inventory.csv
-IF NOT EXIST "\Program Files (x86)\OpenOffice 4\program\scalc.exe" start "C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe" %Account%_Storage_%day%%month%%year%_Inventory.csv
+IF EXIST "c:\Program Files (x86)\OpenOffice 4\program\scalc.exe" Start "c:\Program Files (x86)\OpenOffice 4\program\scalc.exe" %Account%_Storage_%day%%month%%year%_Inventory.csv
+IF NOT EXIST "c:\Program Files (x86)\OpenOffice 4\program\scalc.exe" start "C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe" %Account%_Storage_%day%%month%%year%_Inventory.csv
 endlocal
