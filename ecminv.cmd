@@ -1,4 +1,4 @@
-REM Version 0.9 ECM csv Inventory cleanup
+@REM Version 0.91 ECM csv Inventory cleanup
 @echo off
 del newfile.csv
 del complete.csv
@@ -6,11 +6,9 @@ for /f "skip=3 delims=*" %%a in (%1) do (
 echo %%a >>newfile.csv   
 )
 setlocal enableextensions enabledelayedexpansion
-SET /A COUNT=0
 for /F "tokens=*" %%A in (newfile.csv) do (
     set LINE="%%A"
-    set /A COUNT+=1
-    for /F "tokens=2-7,21,26,32 delims=;" %%a in (!LINE!) do (
+    for /F "tokens=2-7,21,26,31* delims=;" %%a in (!LINE!) do (
         set row[0]=%%a
         set row[1]=%%b
         set row[2]=%%c
