@@ -1,4 +1,4 @@
-@REM Version 2.7.1 ECM csv Inventory cleanup
+@REM Version 2.8 ECM csv Inventory cleanup
 @echo off
 dir IDMCOMP* >files.txt
 start notepad files.txt
@@ -43,8 +43,7 @@ set /P Account=Account Name
 if exist %Account%_Storage_%day%%month%%year%_Inventory.csv ren %Account%_Storage_%day%%month%%year%_Inventory.csv %Account%_Storage_%day%%month%%year%_Inventory-%RANDOM%.csv
 ren Storage_complete_Inventory.csv %Account%_Storage_%day%%month%%year%_Inventory.csv
 del newfile.csv
-IF EXIST "c:\Program Files (x86)\OpenOffice 4\program\scalc.exe" (
-	start call "c:\Program Files (x86)\OpenOffice 4\program\scalc.exe" %Account%_Storage_%day%%month%%year%_Inventory.csv
-	)
-IF NOT EXIST "c:\Program Files (x86)\OpenOffice 4\program\scalc.exe" start call "C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe" %Account%_Storage_%day%%month%%year%_Inventory.csv
+del files.txt
+IF EXIST "c:\Program Files (x86)\OpenOffice 4\program\scalc.exe" start "" "c:\Program Files (x86)\OpenOffice 4\program\scalc.exe" %Account%_Storage_%day%%month%%year%_Inventory.csv
+IF NOT EXIST "c:\Program Files (x86)\OpenOffice 4\program\scalc.exe" start "" "C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe" %Account%_Storage_%day%%month%%year%_Inventory.csv
 endlocal
