@@ -1,10 +1,10 @@
-@REM Version 2.5 ECM csv Inventory cleanup
+@REM Version 2.5.01 ECM csv Inventory cleanup
 @echo off
 set filename=%1
 if [%1]==[] set /P filename=Enter filename 
 
-del newfile.csv
-del Storage_complete_Inventory.csv
+if Exist newfile.csv del newfile.csv
+if exist storage_complete_inventory.csv del Storage_complete_Inventory.csv
 for /f "skip=3 delims=*" %%a in (%filename%) do (
 echo %%a >>newfile.csv   
 )
