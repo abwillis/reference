@@ -1,6 +1,6 @@
 @echo off
 REM Copyright Andy Willis Licensed to IBM 
-REM Version 1.5.2
+REM Version 1.5.3
 if exist validatemefs.vbs del validatemefs.vbs
 if exist info.txt del info.txt
 if exist %USERPROFILE%\Downloads\validatemefs.vbs del %USERPROFILE%\Downloads\validatemefs.vbs
@@ -39,7 +39,7 @@ if %month%==9 set month=Sep
 if %month%==10 set month=Oct
 if %month%==11 set month=Nov
 if %month%==12 set month=Dec
-findstr /I NOMEFS validatemefs_%day%%month%%year%_REPORT.csv
+findstr /I NOMEF validatemefs_%day%%month%%year%_REPORT.csv
 if %ERRORLEVEL%==0 echo NOMEFS were found
 "C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe" validatemefs_%day%%month%%year%_REPORT.csv
 :nocsv
