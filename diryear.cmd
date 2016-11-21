@@ -1,4 +1,6 @@
-echo off
+@REM Create directories based on account and year.  Creates directories for all 4 quarters.
+@REM Version 1.0.01
+@echo off
 if /I "%1" == "" goto usage
 if /I "%2" == "" goto usage
 cd c:\accounts
@@ -17,8 +19,8 @@ for %%G IN (1Q%2 2Q%2 3Q%2 4Q%2) do (
 cd ..
 goto end
 :usage
-echo "Usage:  diryear account year"
-echo "Where account is the account name using underscore instead of space"
-echo "Where year is 2 digit year e.g. 16"
+@echo "Usage:  diryear account year"
+@echo "Where account is the account name using underscore instead of space"
+@echo "Where year is 2 digit year e.g. 16"
 :end
-echo on
+@echo on
