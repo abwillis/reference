@@ -1,4 +1,4 @@
-@REM Version 2.1 ECM csv Inventory cleanup
+@REM Version 2.5 ECM csv Inventory cleanup
 @echo off
 set filename=%1
 if [%1]==[] set /P filename=Enter filename 
