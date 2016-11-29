@@ -1,6 +1,6 @@
 @echo off
 REM Copyright Andy Willis Licensed to IBM 
-REM Version 1.6.0
+REM Version 1.6.2
 if exist validatemefs.vbs del validatemefs.vbs
 if exist info.txt del info.txt
 if exist %USERPROFILE%\Downloads\validatemefs.vbs del %USERPROFILE%\Downloads\validatemefs.vbs
@@ -17,8 +17,6 @@ for /f "delims=" %%D in ('dir data /a:d /b') do echo %%~fD >>info.txt
 REM dir /s/b *evidence* >>info.txt
 start notepad info.txt
 cscript validatemefs.vbs
-Choice /M "Do you want to open the csv file? (Y/N)"
-IF %ERRORLEVEL% == 2 goto nocsv
 FOR /F "tokens=*" %%A IN ('DATE/T') DO FOR %%B IN (%%A) DO SET Today=%%B
 SET result=%Today:*/=%
 SET year=%result:*/=%
@@ -41,7 +39,9 @@ if %month%==11 set month=Nov
 if %month%==12 set month=Dec
 findstr /I NOMEF validatemefs_%day%%month%%year%_REPORT.csv
 if %ERRORLEVEL%==0 echo NOMEFS were found
-"C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe" validatemefs_%day%%month%%year%_REPORT.csv
+Choice /M "Do you want to open the csv file? (Y/N)"
+IF %ERRORLEVEL% == 2 goto nocsv
+start "" "C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe" validatemefs_%day%%month%%year%_REPORT.csv
 :nocsv
 Choice /M "Do you want to remove validatemefs log files? (Y/N)"
 IF %ERRORLEVEL% == 2 goto nodel
