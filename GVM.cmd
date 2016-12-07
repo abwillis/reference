@@ -1,6 +1,6 @@
 @echo off
 REM Copyright Andy Willis Licensed to IBM 
-REM Version 1.6.4
+REM Version 1.6.5
 if exist validatemefs.vbs del validatemefs.vbs
 if exist info.txt del info.txt
 if exist %USERPROFILE%\Downloads\validatemefs.vbs del %USERPROFILE%\Downloads\validatemefs.vbs
@@ -42,7 +42,7 @@ findstr /I NOMEF validatemefs_%day%%month%%year%_REPORT.csv
 if %ERRORLEVEL%==0 echo NOMEFS were found
 Choice /M "Do you want to open the csv file? (Y/N)"
 IF %ERRORLEVEL% == 2 goto nocsv
-start "" "C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe" validatemefs_%day%%month%%year%_REPORT.csv
+start "" "C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe" %cd%\validatemefs_%day%%month%%year%_REPORT.csv
 :nocsv
 Choice /M "Do you want to remove validatemefs log files? (Y/N)"
 IF %ERRORLEVEL% == 2 goto nodel
