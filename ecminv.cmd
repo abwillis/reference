@@ -1,4 +1,4 @@
-@REM Version 2.8 ECM csv Inventory cleanup
+@REM Version 3.0 ECM csv Inventory cleanup
 @echo off
 dir IDMCOMP* >files.txt
 start notepad files.txt
@@ -27,7 +27,7 @@ for /F "tokens=*" %%A in (newfile.csv) do (
 		set column[7]=%%h
 )
 
-			echo !column[0]!;!column[1]!;!column[2]!;!column[3]!;!column[4]!;!column[5]!;!column[6]!;!column[7]!;!column[8]!;  >>Storage_complete_Inventory.csv
+			echo !column[0]!,!column[1]!,!column[2]!,!column[3]!,!column[4]!,!column[5]!,!column[6]!,!column[7]!,!column[8]!,  >>Storage_complete_Inventory.csv
 )
 set /P Account=Account Name 
         FOR /F "tokens=*" %%A IN ('DATE/T') DO FOR %%B IN (%%A) DO SET Today=%%B
