@@ -1,4 +1,4 @@
-@REM Version 3.0 ECM csv Inventory cleanup
+@REM Version 3.5 ECM csv Inventory cleanup
 @echo off
 dir IDMCOMP* >files.txt
 set filename=%1
@@ -29,7 +29,9 @@ for /F "tokens=*" %%A in (newfile.csv) do (
 
 			echo !column[0]!,!column[1]!,!column[2]!,!column[3]!,!column[4]!,!column[5]!,!column[6]!,!column[7]!,!column[8]!,  >>Storage_complete_Inventory.csv
 )
-set /P Account=Account Name 
+@REM for account to be set as an argument then the filename must be given as the first argument as account must be argument #2.
+set Account=%2
+if [%2]==[] set /P Account=Account Name 
         FOR /F "tokens=*" %%A IN ('DATE/T') DO FOR %%B IN (%%A) DO SET Today=%%B
 			SET result=%Today:*/=%
 			SET year=%result:*/=%
