@@ -8,7 +8,7 @@ if [%1]==[] set /P filename=Enter filename
 if Exist newfile.csv del newfile.csv
 if exist storage_complete_inventory.csv del Storage_complete_Inventory.csv
 for /f "skip=3 delims=*" %%a in (%filename%) do (
-echo %%a >>newfile.csv   
+echo %%a>>newfile.csv   
 )
 setlocal enableextensions enabledelayedexpansion
 for /F "tokens=*" %%A in (newfile.csv) do (
@@ -27,7 +27,7 @@ for /F "tokens=*" %%A in (newfile.csv) do (
 		set column[7]=%%h
 )
 
-			echo !column[0]!,!column[1]!,!column[2]!,!column[3]!,!column[4]!,!column[5]!,!column[6]!,!column[7]!,!column[8]!,  >>Storage_complete_Inventory.csv
+			echo !column[0]!,!column[1]!,!column[2]!,!column[3]!,!column[4]!,!column[5]!,!column[6]!,!column[7]!,!column[8]!,>>Storage_complete_Inventory.csv
 )
 @REM for account to be set as an argument then the filename must be given as the first argument as account must be argument #2.
 set Account=%2
