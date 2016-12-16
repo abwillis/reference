@@ -1,6 +1,6 @@
 @echo off
 REM Copyright Andy Willis Licensed to IBM 
-REM Version 1.6.5
+REM Version 1.6.7
 if exist validatemefs.vbs del validatemefs.vbs
 if exist info.txt del info.txt
 if exist %USERPROFILE%\Downloads\validatemefs.vbs del %USERPROFILE%\Downloads\validatemefs.vbs
@@ -13,8 +13,8 @@ if exist *inventory*.csv dir /b *inventory*.csv >>info.txt
 if exist *mgr03*.csv dir /b *mgr03*.csv >>info.txt
 goto Date
 :back
-for /f "delims=" %%D in ('dir *evidence* /a:d /b') do echo %%~fD >>info.txt
-for /f "delims=" %%D in ('dir *data* /a:d /b') do echo %%~fD >>info.txt
+for /f "delims=" %%D in ('dir *evidence* /a:d /b') do echo %%~fD>>info.txt
+for /f "delims=" %%D in ('dir *data* /a:d /b') do echo %%~fD>>info.txt
 REM dir /s/b *evidence* >>info.txt
 start notepad info.txt
 cscript validatemefs.vbs
@@ -148,6 +148,6 @@ goto CHKDAY
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
 
-echo %mm%/%dd%/%yyyy% >>info.txt
+echo %mm%/%dd%/%yyyy%>>info.txt
 goto back
 :end
