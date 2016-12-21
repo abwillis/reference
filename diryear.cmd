@@ -1,5 +1,5 @@
 @REM Create directories based on account and year.  Creates directories for all 4 quarters.
-@REM Version 2.1
+@REM Version 2.2
 @echo off
 if /I "%1" == "" goto usage
 if /I "%1" == "genpar" goto usage
@@ -31,10 +31,10 @@ cd ..
 :current
 goto end
 :usage
-@echo "Usage:  diryear account year genpar"
-@echo "Where account is the account name using underscore instead of space (use no spaces)"
-@echo "If in the directory where you want the quarters built, you can use a dot instead of account name"
-@echo "Where year is 2 digit year e.g. 17"
-@echo "Where genpar is optional if needed to do genpar for URT, it creates genpar directories."
+@echo Usage:  diryear account year genpar
+@echo Where account is the account name using underscore instead of space (use no spaces)
+@echo If in the directory where you want the quarters built, you can use a dot instead of account name
+@echo Where year is 2 digit year e.g. 17
+@echo Where genpar is optional if account is URT, it creates directories for genpar.
 :end
 @echo on
