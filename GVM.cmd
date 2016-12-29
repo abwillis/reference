@@ -1,10 +1,10 @@
 @echo off
 REM Copyright Andy Willis Licensed to IBM 
-REM Version 1.6.7
+REM Version 1.7.0
 if exist validatemefs.vbs del validatemefs.vbs
 if exist info.txt del info.txt
 if exist %USERPROFILE%\Downloads\validatemefs.vbs del %USERPROFILE%\Downloads\validatemefs.vbs
-"c:\program files (x86)\mozilla firefox\firefox" https://w3-connections.ibm.com/wikis/form/api/wiki/50f89124-0fdc-4f7b-a7e4-00f0fa10fe6d/page/b7c8909b-a444-4cc8-8966-4a0002a1409f/attachment/b92caab9-0b85-4b7b-8d38-1c1785eeb66c/media/ValidateMefs.vbs
+start "" "c:\program files (x86)\mozilla firefox\firefox" https://w3-connections.ibm.com/wikis/form/api/wiki/50f89124-0fdc-4f7b-a7e4-00f0fa10fe6d/page/b7c8909b-a444-4cc8-8966-4a0002a1409f/attachment/b92caab9-0b85-4b7b-8d38-1c1785eeb66c/media/ValidateMefs.vbs
 Set /P Enter=Hit Enter when download is complete
 if exist %USERPROFILE%\Downloads\validatemefs.vbs copy %USERPROFILE%\Downloads\validatemefs.vbs .
 if exist *inventory*.xls dir /b *inventory*.xls >info.txt
