@@ -1,6 +1,6 @@
 @echo off
 REM Copyright Andy Willis Licensed to IBM 
-REM Version 1.7.1
+REM Version 1.7.2
 if exist validatemefs.vbs del validatemefs.vbs
 if exist info.txt del info.txt
 if exist %USERPROFILE%\Downloads\validatemefs.vbs del %USERPROFILE%\Downloads\validatemefs.vbs
@@ -28,15 +28,15 @@ SET day=%intermediate:/=%
 SET first=%Today:*/=%
 CALL SET intermediate=%%Today:%first%=%%
 set month=%intermediate:/=%
-if %month%==1 set month=Jan
-if %month%==2 set month=Feb
-if %month%==3 set month=Mar
-if %month%==4 set month=Apr
-if %month%==5 set month=May
-if %month%==6 set month=Jun
-if %month%==7 set month=Jul
-if %month%==8 set month=Aug
-if %month%==9 set month=Sep
+if %month%==01 set month=Jan
+if %month%==02 set month=Feb
+if %month%==03 set month=Mar
+if %month%==04 set month=Apr
+if %month%==05 set month=May
+if %month%==06 set month=Jun
+if %month%==07 set month=Jul
+if %month%==08 set month=Aug
+if %month%==09 set month=Sep
 if %month%==10 set month=Oct
 if %month%==11 set month=Nov
 if %month%==12 set month=Dec
