@@ -1,11 +1,12 @@
-@REM Version 3.5 ECM csv Inventory cleanup
+@REM Version 3.8 ECM csv Inventory cleanup
 @echo off
-dir IDMCOMP* >files.txt
+if exist *IDCOMP* dir /b IDMCOMP* >files.txt
+if exist *Cust* dir /b Cust* >>files.txt
 set filename=%1
 if [%1]==[] start notepad files.txt
 if [%1]==[] set /P filename=Enter filename 
 
-if Exist newfile.csv del newfile.csv
+if exist newfile.csv del newfile.csv
 if exist storage_complete_inventory.csv del Storage_complete_Inventory.csv
 for /f "skip=3 delims=*" %%a in (%filename%) do (
 echo %%a>>newfile.csv   
