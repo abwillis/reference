@@ -1,6 +1,6 @@
 @echo off
 REM Copyright Andy Willis Licensed to IBM 
-REM Version 1.7.2
+REM Version 1.7.3
 if exist validatemefs.vbs del validatemefs.vbs
 if exist info.txt del info.txt
 if exist %USERPROFILE%\Downloads\validatemefs.vbs del %USERPROFILE%\Downloads\validatemefs.vbs
@@ -17,6 +17,7 @@ for /f "delims=" %%D in ('dir *evidence* /a:d /b') do echo %%~fD>>info.txt
 for /f "delims=" %%D in ('dir *data* /a:d /b') do echo %%~fD>>info.txt
 for /f "delims=" %%D in ('dir *done* /a:d /b') do echo %%~fD>>info.txt
 for /f "delims=" %%D in ('dir *mef* /a:d /b') do echo %%~fD>>info.txt
+for /f "delims=" %%D in ('dir *ready* /a:d /b') do echo %%~fD>>info.txt
 REM dir /s/b *evidence* >>info.txt
 start notepad info.txt
 cscript validatemefs.vbs
