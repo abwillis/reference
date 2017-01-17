@@ -100,3 +100,4 @@ if /I %dd% LSS 10 set dd=0%dd%
 echo %dayCnt% back
 echo %mm%/%dd%/%yyyy%
 :end
+pause
