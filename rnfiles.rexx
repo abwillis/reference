@@ -1,6 +1,6 @@
 /* Rename bulk files Adding to the front. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.4  1/12/2016 */
+/* Version 1.5  1/12/2016 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG common addition
