@@ -1,11 +1,10 @@
 /* Rename bulk files Adding to the front. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0  1/12/2016 */
+/* Version 1.1  1/12/2016 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG common addition
 rc = SysFileTree(common'*','file','FO')
-rc = SysFileDelete(dupcheck.txt)
 direc = Directory()
 if (file.0 == 0) then call finish
 do k = 1 to file.0
