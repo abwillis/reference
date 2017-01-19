@@ -1,6 +1,6 @@
 @echo off
 REM Copyright Andy Willis Licensed to IBM 
-REM Version 1.7.3
+REM Version 1.7.5
 if exist validatemefs.vbs del validatemefs.vbs
 if exist info.txt del info.txt
 if exist %USERPROFILE%\Downloads\validatemefs.vbs del %USERPROFILE%\Downloads\validatemefs.vbs
@@ -10,6 +10,7 @@ if exist %USERPROFILE%\Downloads\validatemefs.vbs copy %USERPROFILE%\Downloads\v
 if exist *inventory*.xls dir /b *inventory*.xls >info.txt
 if exist *inventory*.xlsx dir /b *inventory*.xlsx >>info.txt
 if exist *inventory*.csv dir /b *inventory*.csv >>info.txt
+if exist *Cust*.csv dir /b *cust*.csv >>info.txt
 if exist *mgr03*.csv dir /b *mgr03*.csv >>info.txt
 goto Date
 :back
