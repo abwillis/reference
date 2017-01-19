@@ -1,10 +1,10 @@
 :Date
 @echo off
 REM Public Domain Date subtraction code
-REM Version 1.2 19Jan2017
+REM Version 2.0 19Jan2017
 set yyyy=
 set dayCnt=%1
-if [%1] = '' set /P dayCnt = How many days back? (negative numbers goes Back to the Future)
+if [%1]==[] set /P dayCnt=How many days back? (negative numbers goes Back to the Future) 
 
 set $tok=1-3
 for /f "tokens=1 delims=.:/-, " %%u in ('date /t') do set $d1=%%u
@@ -21,8 +21,6 @@ if "%yyyy%"=="" set yyyy=%yy%
 if /I %yyyy% LSS 100 set /A yyyy=2000 + 1%yyyy% - 100
 
 set CurDate=%mm%/%dd%/%yyyy%
-
-set dayCnt=%1
 
 if "%dayCnt%"=="" set dayCnt=90
 
