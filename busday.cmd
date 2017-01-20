@@ -1,7 +1,7 @@
 :Date
 @echo off
 REM Public Domain Date business day changes
-REM Version 1.3 20Jan2017
+REM Version 1.5 20Jan2017
 set yyyy=
 set dayCnt1=%1
 if [%1]==[] set /P dayCnt1=How many business days? 
@@ -27,9 +27,10 @@ goto countedday
 
 :busdayadd
 
-set /A dayaddit = %dayCnt1% + %dw%
-set /A daycheck = %dayaddit% / 7
-set /A adddaysto = (%daycheck% * 2) + 2
+set /A dayaddit = %dayCnt1% 
+set /A daycheck = %dayaddit% / 5
+if %daycheck% LSS 1 set /A daycheck=1
+set /A adddaysto = (%daycheck% * 2)
 
 :countedday
 set /A dayCnt = (%dayCnt1% + %adddaysto%) * -1
