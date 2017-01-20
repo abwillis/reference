@@ -1,11 +1,15 @@
 :Date
 @echo off
 REM Public Domain Date business day changes
-REM Version 1.0 20Jan2017
+REM Version 1.2 20Jan2017
 set yyyy=
 set dayCnt=%1
 if [%1]==[] set /P dayCnt1=How many business days? 
 if "%dayCnt1%"=="" set dayCnt1=3
+REM business days does not make sense for going back for my needs so
+REM rather than making it work, just assuming it was a mistake and 
+REM using the absolue value
+if %dayCnt1% LSS 0 set /A dayCnt1 = %dayCnt1% * -1
 
 set /a dw=8
 set /a adddaysto=0
