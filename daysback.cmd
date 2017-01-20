@@ -1,7 +1,7 @@
 :Date
 @echo off
 REM Public Domain Date subtraction code
-REM Version 2.1 19Jan2017
+REM Version 2.2 19Jan2017
 set yyyy=
 set dayCnt=%1
 if [%1]==[] set /P dayCnt=How many days back? (negative numbers goes Back to the Future) 
@@ -123,5 +123,8 @@ if /I %dd% LSS 10 set dd=0%dd%
 
 @echo %dayCnt% back
 @echo %mm%/%dd%/%yyyy%
+set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
+@echo %dd%%month%%yyyy%
 :end
 pause
