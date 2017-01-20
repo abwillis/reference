@@ -1,7 +1,7 @@
 :Date
 @echo off
 REM Public Domain Date subtraction code
-REM Version 2.0 19Jan2017
+REM Version 2.1 19Jan2017
 set yyyy=
 set dayCnt=%1
 if [%1]==[] set /P dayCnt=How many days back? (negative numbers goes Back to the Future) 
@@ -26,10 +26,15 @@ if "%dayCnt%"=="" set dayCnt=90
 
 REM Substract your days here
 set /A dd=1%dd% - 100 - %dayCnt%
+
 set /A mm=1%mm% - 100
 
+set ng=0
+if /I %dayCnt% LSS 0 set ng=1
 :CHKDAY
 
+if /I %dd% GTR 31 goto ADDDAY
+set ng=0
 if /I %dd% GTR 0 goto DONE
 
 set /A mm=%mm% - 1
@@ -55,13 +60,17 @@ if %mm%==11 goto SET30
 REM ** Month 12 falls through
 
 :SET31
-
+if /I %ng% == 1 set /A dd=%dd% - 62
+if /I %ng% == 1 set /A mm=%mm% + 1
+if /I %ng%==1 if /I %mm%==13 set mm=1
 set /A dd=31 + %dd%
 
 goto CHKDAY
 
 :SET30
-
+if /I %ng% == 1 set /A dd=%dd% -60
+if /I %ng% == 1 set /A mm=%mm% + 1
+if /I %ng%==1 if /I %mm%==13 set mm=1
 set /A dd=30 + %dd%
 
 goto CHKDAY
@@ -82,22 +91,37 @@ if %tt%==0 goto SET29
 
 :SET28
 
+if /I %ng% == 1 set /A dd=%dd% - 56
+if /I %ng% == 1 set /A mm=%mm% + 1
+if /I %ng%==1 if /I %mm%==13 set mm=1
 set /A dd=28 + %dd%
 
 goto CHKDAY
 
 :SET29
 
+if /I %ng% == 1 set /A dd=%dd% - 58
+if /I %ng% == 1 set /A mm=%mm% + 1
+if /I %ng%==1 if /I %mm%==13 set mm=1
 set /A dd=29 + %dd%
 
 goto CHKDAY
+
+:ADDDAY
+
+
+
+
+if /I %mm% GTR 0 goto ADJUSTDAY
+
+Goto CHKDAY
 
 :DONE
 
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
 
-echo %dayCnt% back
-echo %mm%/%dd%/%yyyy%
+@echo %dayCnt% back
+@echo %mm%/%dd%/%yyyy%
 :end
 pause
