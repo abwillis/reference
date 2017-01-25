@@ -1,7 +1,7 @@
 :Date
 @echo off
 REM Public Domain Date business day changes
-REM Version 1.5 20Jan2017
+REM Version 1.6 25Jan2017
 set yyyy=
 set dayCnt1=%1
 if [%1]==[] set /P dayCnt1=How many business days? 
@@ -22,7 +22,7 @@ if "%Date:~0,3%"=="Mon" set /A dw = 5
 if "%Date:~0,3%"=="Tue" set /A dw = 4
 if "%Date:~0,3%"=="Wed" set /A dw = 3
 
-if %dayCnt1% GTR %dw% goto busdayadd
+if %dayCnt1% GEQ %dw% goto busdayadd
 goto countedday
 
 :busdayadd
