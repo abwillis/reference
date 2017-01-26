@@ -1,10 +1,10 @@
 /* Find duplicate mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0  1/12/2016 */
+/* Version 1.1  1/26/2016 */
 rc = SysLoadFuncs()
 home = directory()
 
-rc = SysFileDelete(dupcheck.txt)
+rc = SysFileDelete(dupcheck.csv)
 rc = SysFileTree('*.mef3','file','FO')
 if (file.0 == 0) then call finish
 do k = 1 to file.0
@@ -25,6 +25,7 @@ names:
 do x = 1 to howm.0
 listfile = howm.x
 say listfile 
+rc = lineout('dupcheck.csv',listfile)
 end
 return
 
