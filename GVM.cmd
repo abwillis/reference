@@ -1,6 +1,6 @@
 @echo off
 REM Copyright Andy Willis Licensed to IBM 
-REM Version 1.8.0
+REM Version 1.8.1
 if exist validatemefs.vbs del validatemefs.vbs
 if exist info.txt del info.txt
 if exist %USERPROFILE%\Downloads\validatemefs.vbs del %USERPROFILE%\Downloads\validatemefs.vbs
@@ -155,4 +155,4 @@ if /I %dd% LSS 10 set dd=0%dd%
 echo %mm%/%dd%/%yyyy%>>info.txt
 goto back
 :end
-taskkill /fi "WINDOWTITLE eq files.txt*" >nul
+taskkill /fi "WINDOWTITLE eq info.txt*" >nul
