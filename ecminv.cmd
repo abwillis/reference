@@ -1,8 +1,8 @@
-@REM Version 4.0 ECM csv Inventory cleanup
+@REM Version 4.1 ECM csv Inventory cleanup
 @echo off
 if exist *IDCOMP* dir /b IDMCOMP* >files.txt
 if exist *Cust* dir /b Cust* >>files.txt
-echo %~dp0>>files.txt
+echo %cd%>>files.txt
 set filename=%1
 if [%1]==[] start notepad files.txt
 if [%1]==[] set /P filename=Enter filename 
