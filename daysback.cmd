@@ -122,13 +122,15 @@ Goto CHKDAY
 
 :DONE
 
+set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
+
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
 
 @echo %dayCnt% back
 @echo %mm%/%dd%/%yyyy%
-set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
-for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
+
 @echo %dd%%month%%yyyy%
 :end
 pause
