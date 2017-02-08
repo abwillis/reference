@@ -1,7 +1,7 @@
 :Date
 @echo off
 REM Public Domain Date subtraction code
-REM Version 2.4 20Jan2017
+REM Version 2.5 08Feb2017
 set yyyy=
 set dayCnt=%1
 if [%1]==[] set /P dayCnt=How many days back? (negative numbers goes Back to the Future) 
