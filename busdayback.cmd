@@ -1,7 +1,7 @@
 :Date
 @echo off
 REM Date business days subtraction code 
-REM Version 1.0 08Feb2017
+REM Version 1.1 08Feb2017
 set yyyy=
 set dayCnt1=%1
 if [%1]==[] set /P dayCnt1=How many days back? 
@@ -24,18 +24,6 @@ REM if %dayCnt1% GEQ %dw% set /a dadd = %dadd% + 2
 
 if %dayCnt1% GEQ %dw% goto busdayadd
 goto nospares
-:busdayaddtoo
-set /a days = ((%dayCnt1% / 5) * 2)
-if %days% LSS 2 set /A days=2
-echo %days% days to add
-
-set /a dleft = (%days% / 5)
-set /a dadd = %dadd% + (%dleft% * 2)
-if %dleft% LSS 7 goto nospares
-:spares
-set /a dleft = %dleft% / 5
-set /a dadd = %dadd% + (%dleft% * 2)
-if %dleft% GEQ 7 goto spares
 
 :busdayadd
 set /A days = %dayCnt1% / 5
@@ -44,7 +32,6 @@ set /A adddaysto = (%days% * 2)
 
 :nospares
 
-REM set /a dayCnt = %dayCnt1% + %days% + %dadd%
 set /a dayCnt = %dayCnt1% + %adddaysto%
 echo %dayCnt% day count
 set $tok=1-3
