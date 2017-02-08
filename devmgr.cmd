@@ -1,4 +1,4 @@
-@REM Version 1.2 MGR-DEVICES cleanup storage
+@REM Version 1.3 MGR-DEVICES cleanup storage
 @echo off
 if exist *MGR* dir /b *MGR* >files.txt
 echo %cd%>>files.txt
@@ -9,7 +9,8 @@ goto text
 :filenames
 if [%1]==[] set /P filename=Enter filename 
 if [%2]==[] set /P account=Enter account 
-findstr /I storage %filename% >%account%-DEVICES.csv
+findstr /I /V SHID %filename%>hold.txt 
+findstr /I storage hold.txt >%account%-DEVICES.csv
 if [%1]==[] taskkill /fi "WINDOWTITLE eq files.txt*" >nul
 if [%2]==[] taskkill /fi "WINDOWTITLE eq files.txt*" >nul
 del files.txt
