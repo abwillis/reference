@@ -1,0 +1,150 @@
+:Date
+@echo off
+REM Date business days subtraction code 
+REM Version 1.0 08Feb2017
+set yyyy=
+set dayCnt1=%1
+if [%1]==[] set /P dayCnt1=How many days back? 
+if "%dayCnt1%"=="" set dayCnt=90
+REM if %dayCnt1% LSS 0 set /A dayCnt1 = %dayCnt1% * -1
+
+set /a dw=8
+set /a adddaysto=0
+set /a dadd = 0
+
+if "%Date:~0,3%"=="Thu" set /A dw = 4
+if "%Date:~0,3%"=="Fri" set /A dw = 5
+if "%Date:~0,3%"=="Sat" set /A dw = 6
+if "%Date:~0,3%"=="Sun" set /A dw = 0
+if "%Date:~0,3%"=="Mon" set /A dw = 1
+if "%Date:~0,3%"=="Tue" set /A dw = 2
+if "%Date:~0,3%"=="Wed" set /A dw = 3
+
+REM if %dayCnt1% GEQ %dw% set /a dadd = %dadd% + 2
+
+if %dayCnt1% GEQ %dw% goto busdayadd
+goto nospares
+:busdayaddtoo
+set /a days = ((%dayCnt1% / 5) * 2)
+if %days% LSS 2 set /A days=2
+echo %days% days to add
+
+set /a dleft = (%days% / 5)
+set /a dadd = %dadd% + (%dleft% * 2)
+if %dleft% LSS 7 goto nospares
+:spares
+set /a dleft = %dleft% / 5
+set /a dadd = %dadd% + (%dleft% * 2)
+if %dleft% GEQ 7 goto spares
+
+:busdayadd
+set /A days = %dayCnt1% / 5
+if %days% LSS 1 set /A days = 1
+set /A adddaysto = (%days% * 2)
+
+:nospares
+
+REM set /a dayCnt = %dayCnt1% + %days% + %dadd%
+set /a dayCnt = %dayCnt1% + %adddaysto%
+echo %dayCnt% day count
+set $tok=1-3
+for /f "tokens=1 delims=.:/-, " %%u in ('date /t') do set $d1=%%u
+if "%$d1:~0,1%" GTR "9" set $tok=2-4
+for /f "tokens=%$tok% delims=.:/-, " %%u in ('date /t') do (
+ for /f "skip=1 tokens=2-4 delims=/-,()." %%x in ('echo.^|date') do (
+    set %%x=%%u
+    set %%y=%%v
+    set %%z=%%w
+    set $d1=
+    set $tok=))
+
+if "%yyyy%"=="" set yyyy=%yy%
+if /I %yyyy% LSS 100 set /A yyyy=2000 + 1%yyyy% - 100
+
+set CurDate=%mm%/%dd%/%yyyy%
+
+REM Substract your days here
+set /A dd=1%dd% - 100 - %dayCnt%
+set /A mm=1%mm% - 100
+
+
+:CHKDAY
+
+
+if /I %dd% GTR 0 goto DONE
+
+set /A mm=%mm% - 1
+
+if /I %mm% GTR 0 goto ADJUSTDAY
+
+set /A mm=12
+set /A yyyy=%yyyy% - 1
+
+:ADJUSTDAY
+
+if %mm%==1 goto SET31
+if %mm%==2 goto LEAPCHK
+if %mm%==3 goto SET31
+if %mm%==4 goto SET30
+if %mm%==5 goto SET31
+if %mm%==6 goto SET30
+if %mm%==7 goto SET31
+if %mm%==8 goto SET31
+if %mm%==9 goto SET30
+if %mm%==10 goto SET31
+if %mm%==11 goto SET30
+REM ** Month 12 falls through
+
+:SET31
+
+set /A dd=31 + %dd%
+
+goto CHKDAY
+
+:SET30
+
+set /A dd=30 + %dd%
+
+goto CHKDAY
+
+:LEAPCHK
+
+set /A tt=%yyyy% %% 4
+
+if not %tt%==0 goto SET28
+
+set /A tt=%yyyy% %% 100
+
+if not %tt%==0 goto SET29
+
+set /A tt=%yyyy% %% 400
+
+if %tt%==0 goto SET29
+
+:SET28
+
+set /A dd=28 + %dd%
+
+goto CHKDAY
+
+:SET29
+
+set /A dd=29 + %dd%
+
+goto CHKDAY
+
+
+:DONE
+
+set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
+
+if /I %mm% LSS 10 set mm=0%mm%
+if /I %dd% LSS 10 set dd=0%dd%
+
+@echo %dayCnt1% business days back
+@echo %mm%/%dd%/%yyyy%
+
+@echo %dd%%month%%yyyy%
+:end
+pause
