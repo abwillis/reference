@@ -1,14 +1,12 @@
 :Date
 @echo off
 REM Public Domain Date business day changes
-REM Version 2.0 08Feb2017
+REM Version 2.0.5 08Feb2017
 set yyyy=
 set dayCnt1=%1
 if [%1]==[] set /P dayCnt1=How many business days? (negative numbers goes Back to the Future)
 if "%dayCnt1%"=="" set dayCnt1=3
-REM business days does not make sense for going back for my needs so
-REM rather than making it work, just assuming it was a mistake and 
-REM using the absolue value
+
 set /A negd = 1
 if %dayCnt1% LSS 0 set /A negd = -1
 if %dayCnt1% LSS 0 set /A dayCnt1 = %dayCnt1% * %negd%
