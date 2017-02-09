@@ -2,7 +2,7 @@
 @echo off
 REM Initial subtraction code from Public Domain 
 REM Revised and extended for business days and forward or backward by Andy Willis
-REM Version 1.0 08Feb2017
+REM Version 1.1 09Feb2017
 set yyyy=
 set dayCnt1=%1
 if [%1]==[] set /P dayCnt1=How many days? (negative numbers goes Back to the Future)
@@ -162,8 +162,11 @@ for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
 
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
+if %dayCnt1% LEQ -1 set presfut=Back to the Future
+if %dayCnt1% EQU 0 set presfut=to the same day
+if %dayCnt1% GEQ 1 set presfut=into the Past
 
-@echo %dayCnt1% days
+@echo %dayCnt1% days %presfut%
 @echo %mm%/%dd%/%yyyy%
 @echo %dd%%month%%yyyy%
 @echo:
@@ -178,8 +181,11 @@ for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
 
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
+if %dayCnt1% LEQ -1 set presfut=Back to the Future
+if %dayCnt1% EQU 0 set presfut=to the same day
+if %dayCnt1% GEQ 1 set presfut=into the Past
 
-@echo %dayCnt1% business days
+@echo %dayCnt1% business days %presfut%
 @echo %mm%/%dd%/%yyyy%
 @echo %dd%%month%%yyyy%
 @echo:
