@@ -2,7 +2,7 @@
 @echo off
 REM Initial subtraction code from Public Domain 
 REM Revised and extended for business days and forward or backward by Andy Willis
-REM Version 1.1 08Feb2017
+REM Version 1.2 09Feb2017
 set yyyy=
 set dayCnt1=%1
 if [%1]==[] set /P dayCnt1=How many days? 
@@ -16,7 +16,6 @@ set /a negrun = 0
 goto firstrun
 
 :secondrun
-echo here?
 set /a dayCnt = (%dayCnt% * -1)
 goto firstrun
 
@@ -164,7 +163,6 @@ if /I %mm% GTR 0 goto ADJUSTDAY
 Goto CHKDAY
 
 :DONE
-
 if %bday% == 1 goto bdayfin
 if %negrun% == 1 goto negfin
 
@@ -173,8 +171,9 @@ for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
 
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
+set presfut=into the Past
 
-@echo %dayCnt1% days
+@echo %dayCnt1% days %presfut%
 @echo %mm%/%dd%/%yyyy%
 @echo %dd%%month%%yyyy%
 @echo:
@@ -190,8 +189,9 @@ for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
 
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
+set presfut=Back to the Future
 
-@echo -%dayCnt1% days
+@echo -%dayCnt1% days %presfut%
 @echo %mm%/%dd%/%yyyy%
 @echo %dd%%month%%yyyy%
 @echo:
@@ -208,8 +208,9 @@ for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
 
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
+set presfut=into the Past
 
-@echo %dayCnt1% business days
+@echo %dayCnt1% business days %presfut%
 @echo %mm%/%dd%/%yyyy%
 @echo %dd%%month%%yyyy%
 @echo:
@@ -224,8 +225,9 @@ for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
 
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
+set presfut=Back to the Future
 
-@echo -%dayCnt1% business days
+@echo -%dayCnt1% business days %presfut%
 @echo %mm%/%dd%/%yyyy%
 @echo %dd%%month%%yyyy%
 @echo:
