@@ -2,7 +2,7 @@
 @echo off
 REM Initial subtraction code from Public Domain 
 REM Revised and extended for business days and forward or backward by Andy Willis
-REM Version 1.2.5 10Feb2017
+REM Version 1.2.6 10Feb2017
 set yyyy=
 set dayCnt1=%1
 if [%1]==[] set /P dayCnt1=How many days? 
@@ -230,6 +230,7 @@ goto end
 :alphamon
 set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
+goto :eof
 
 :end
 pause
