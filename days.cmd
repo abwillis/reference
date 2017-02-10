@@ -2,7 +2,7 @@
 @echo off
 REM Initial subtraction code from Public Domain 
 REM Revised and extended for business days and forward or backward by Andy Willis
-REM Version 1.1 09Feb2017
+REM Version 1.1.5 10Feb2017
 set yyyy=
 set dayCnt1=%1
 if [%1]==[] set /P dayCnt1=How many days? (negative numbers goes Back to the Future)
@@ -156,9 +156,7 @@ Goto CHKDAY
 
 :DONE
 if %bday% == 1 goto bdayfin
-
-set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
-for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
+call :alphamon
 
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
@@ -176,8 +174,7 @@ goto bdayrun
 
 
 :bdayfin
-set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
-for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
+call :alphamon
 
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
@@ -189,7 +186,12 @@ if %dayCnt1% GEQ 1 set presfut=into the Past
 @echo %mm%/%dd%/%yyyy%
 @echo %dd%%month%%yyyy%
 @echo:
+goto end
 
+:alphamon
+set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
+goto :eof
 
 :end
 pause

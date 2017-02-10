@@ -2,7 +2,7 @@
 @echo off
 REM Initial subtraction code from Public Domain 
 REM Revised and extended for business days and forward or backward by Andy Willis
-REM Version 1.2 09Feb2017
+REM Version 1.2.5 10Feb2017
 set yyyy=
 set dayCnt1=%1
 if [%1]==[] set /P dayCnt1=How many days? 
@@ -165,9 +165,7 @@ Goto CHKDAY
 :DONE
 if %bday% == 1 goto bdayfin
 if %negrun% == 1 goto negfin
-
-set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
-for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
+call :alphamon
 
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
@@ -183,9 +181,7 @@ goto secondrun
 
 :negfin
 if %bday% == 1 goto bdayfin
-
-set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
-for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
+call :alphamon
 
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
@@ -203,8 +199,7 @@ goto bdayrun
 
 :bdayfin
 if %negrun% == 1 goto bdaynegfin
-set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
-for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
+call :alphamon
 
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
@@ -220,8 +215,7 @@ set yyyy=
 goto bdayrun
 
 :bdaynegfin
-set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
-for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
+call :alphamon
 
 if /I %mm% LSS 10 set mm=0%mm%
 if /I %dd% LSS 10 set dd=0%dd%
@@ -231,6 +225,11 @@ set presfut=Back to the Future
 @echo %mm%/%dd%/%yyyy%
 @echo %dd%%month%%yyyy%
 @echo:
+goto end
+
+:alphamon
+set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+for /F "tokens=%mm% delims=," %%y in (%track%) do set month=%%y
 
 :end
 pause
