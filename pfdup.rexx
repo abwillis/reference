@@ -1,6 +1,6 @@
 /* Find duplicate mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.1  1/26/2016 */
+/* Version 1.1.1  1/26/2017 */
 rc = SysLoadFuncs()
 home = directory()
 
