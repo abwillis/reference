@@ -1,4 +1,5 @@
-@REM Version 4.2 ECM csv Inventory cleanup
+@REM Version 4.3 21Feb2017 ECM csv Inventory cleanup
+@REM Works off of IDMCOMP customer overview file
 @echo off
 if exist *IDCOMP* dir /b IDMCOMP* >files.txt
 if exist *Cust* dir /b Cust* >>files.txt
@@ -45,7 +46,7 @@ if [%2]==[] set /P Account=Account Name
 			set track="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
 			for /F "tokens=%tmonth% delims=," %%y in (%track%) do set month=%%y
 if exist %Account%_Storage_%day%%month%%year%_Inventory.csv ren %Account%_Storage_%day%%month%%year%_Inventory.csv %Account%_Storage_%day%%month%%year%_Inventory-%RANDOM%.csv
-ren Storage_complete_Inventory.csv %Account%_Storage_%day%%month%%year%_Inventory.csv
+ren Storage_complete_Inventory.csv %Account%_%day%%month%%year%_Inventory.csv
 if exist newfile.csv del newfile.csv
 if [%1]==[] taskkill /fi "WINDOWTITLE eq files.txt*" >nul
 if [%2]==[] taskkill /fi "WINDOWTITLE eq files.txt*" >nul
