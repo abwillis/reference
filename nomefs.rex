@@ -23,6 +23,7 @@ Parse Upper Var text Something'|'Something'|'device'|'Something
 if (dev1 == device) then match = 1
 rc = stream(invfile, 'c', 'close')
 end
+
 if (match == 0) then call names
 end
 rc = stream(fileinv, 'c', 'close')
