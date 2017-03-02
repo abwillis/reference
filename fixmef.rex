@@ -1,6 +1,6 @@
 /* Fix mef file customer environment. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0  1/12/2016 */
+/* Version 1.0  1/12/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG oldenv newenv
