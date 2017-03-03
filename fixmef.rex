@@ -1,6 +1,6 @@
 /* Fix mef file customer environment. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.2  3/2/2017 */
+/* Version 1.3  3/2/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG oldenv newenv
@@ -22,7 +22,7 @@ end
 rc = lineout(invfile)
 
 
-ADDRESS CMD del invfile
+rc = SysFileDelete(invfile)
 end
 
 /*
