@@ -21,6 +21,7 @@ match = 0
 Do While Lines(fileinv)
 inven = LineIn(fileinv)
 Parse Upper Var inven '"'dev1'"'Something
+if (dev1 == "") then Parse Upper Var inven dev1','Something
 if (dev1 == device) then match = 1
 end
 if (match == 0) then call names

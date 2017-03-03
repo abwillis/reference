@@ -1,6 +1,6 @@
 /* Rename bulk files Adding to the front. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.5  1/12/2016 */
+/* Version 1.7  3/3/2016 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG common addition
@@ -13,7 +13,8 @@ invfilec = file.k
 invfile = changestr(direc'\',invfilec,'')
 newfile = changestr(common,invfile,'')
 renfile = addition||newfile
-ADDRESS CMD ren invfile renfile
+rc = SysFileMove(invfile,renfile)
+/* ADDRESS CMD ren invfile renfile */
 
 end
 
