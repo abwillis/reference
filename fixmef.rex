@@ -4,6 +4,7 @@
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG oldenv newenv
+if (oldenv == 'help') then call help
 rc = SysFileTree(oldenv'*','file','FO')
 direc = Directory()
 if (file.0 == 0) then call finish
@@ -26,5 +27,15 @@ end
 
 rc = SysFileTree(newenv'*','file','FO')
 direc = Directory()
+call finish
+
+help:
+say "This was primarily written to correct name environment issues."
+say "Usage:  fixmef oldenv newenv"
+say "fixmef help   This screen"
+say "If the only change is the case, currently it will need to be run twice,"
+say "the first time with a temp name for the newenv and the second time it"
+say "the temp name will be the oldenv."
+
 
 finish:
