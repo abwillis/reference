@@ -1,6 +1,6 @@
 /* Find which mef3 files are missing */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0  2/21/2017 */
+/* Version 1.1  3/3/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -13,7 +13,8 @@ dev1 = "something"
 
 Do While Lines(fileinv)
 inven = LineIn(fileinv)
-Parse Upper Var inven '"'dev1'"'Something
+Parse Upper Var inven '"'dev1'"'TheRest
+if (dev1 == "") then Parse Upper Var inven dev1','TheRest
 match = 0
 
 do k = 1 to file.0
@@ -31,7 +32,7 @@ call finish
 
 names:
 say dev1 
-rc = lineout('dupcheck.csv',device)
+rc = lineout('dupcheck.csv',dev1)
 return
 
 finish:
