@@ -25,8 +25,10 @@ rc = lineout(invfile)
 ADDRESS CMD del invfile
 end
 
+/*
 rc = SysFileTree(newenv'*','file','FO')
 direc = Directory()
+*/
 call finish
 
 help:
