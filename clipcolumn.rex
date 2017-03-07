@@ -1,6 +1,6 @@
 /* Copy column to clipboard, one at a time */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0  2/27/2017 */
+/* Version 1.1  3/07/2017 */
 rc = SysLoadFuncs()
 
 home = directory()
@@ -9,7 +9,8 @@ if fileinv="" then pull fileinv
 
 Do While Lines(fileinv)
 inven = LineIn(fileinv)
-Parse Var inven device' '
+Parse Var inven device1' '
+Parse Var device1 device','TheRest
 say device
 cb = .WindowsClipboard~new
 cb~copy(device)
