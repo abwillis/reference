@@ -1,13 +1,13 @@
 @REM Create directories based on account and year.  Creates directories for all 4 quarters.
-@REM Version 2.6
+@REM Version 2.7 10Mar2017
 @echo off
 if /I "%1" == "" goto usage
 if /I "%1" == "genpar" goto usage
 if /I "%2" == "" goto usage
 if /I "%2" == "genpar" goto usage
 if /I "%1" == "." goto dotted
-if not exist c:\accounts md c:\accounts
-cd c:\accounts
+if not exist \accounts md \accounts
+cd \accounts
 if exist %1 goto next
 md %1
 :next
