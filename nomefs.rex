@@ -1,6 +1,6 @@
 /* Find which mef3 files are missing */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.3  3/8/2017 */
+/* Version 1.4  3/13/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -17,6 +17,9 @@ Do While Lines(fileinv)
 inven = LineIn(fileinv)
 Parse Upper Var inven '"'dev1'"'TheRest
 if (dev1 == "") then Parse Upper Var inven dev1','TheRest
+if (dev1 == "") then Parse Upper Var inven dev1':'TheRest
+if (dev1 == "") then Parse Upper Var inven dev1';'TheRest
+if (dev1 == "") then Parse Upper Var inven dev1'|'TheRest
 match = 0
 
 do k = 1 to file.0
