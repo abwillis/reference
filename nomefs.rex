@@ -1,6 +1,6 @@
 /* Find which mef3 files are missing */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.5  3/13/2017 */
+/* Version 1.6  4/10/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -24,10 +24,12 @@ Parse Upper Var inven '"'dev1'"'TheRest
    so only the first delimeter works, change the delimter
    to the desired one currently.
 */
-if (dev1 == "") then Parse Upper Var inven dev1':'TheRest
+/* Changed from checking dev1 after the first one to TheRest.
+   If TheRest is "" then that is because the delimeter did not exist */
 if (dev1 == "") then Parse Upper Var inven dev1','TheRest
-if (dev1 == "") then Parse Upper Var inven dev1';'TheRest
-if (dev1 == "") then Parse Upper Var inven dev1'|'TheRest
+if (TheRest == "") then Parse Upper Var inven dev1':'TheRest
+if (TheRest == "") then Parse Upper Var inven dev1';'TheRest
+if (TheRest == "") then Parse Upper Var inven dev1'|'TheRest
 match = 0
 
 do k = 1 to file.0
