@@ -1,6 +1,6 @@
 /* Find extra mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.3.1  4/11/2017 */
+/* Version 1.3.2  4/11/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
