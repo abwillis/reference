@@ -1,6 +1,6 @@
 /* Find which mef3 files are missing */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.6  4/10/2017 */
+/* Version 1.7  4/11/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -15,21 +15,7 @@ dev1 = "something"
 rc = stream(fileinv,"c","open")
 Do While Lines(fileinv)
 inven = LineIn(fileinv)
-Parse Upper Var inven '"'dev1'"'TheRest
-/* The following does not work as initially thought
-   it works with the above '"'dev1 being ='' because
-   if there are no "" in use then it picks up nothing
-   but because the below does not have a delimeter prior
-   to the first section, everything gets picked up there
-   so only the first delimeter works, change the delimter
-   to the desired one currently.
-*/
-/* Changed from checking dev1 after the first one to TheRest.
-   If TheRest is "" then that is because the delimeter did not exist */
-if (dev1 == "") then Parse Upper Var inven dev1','TheRest
-if (TheRest == "") then Parse Upper Var inven dev1':'TheRest
-if (TheRest == "") then Parse Upper Var inven dev1';'TheRest
-if (TheRest == "") then Parse Upper Var inven dev1'|'TheRest
+Parse Upper Var inven dev1'|'TheRest
 match = 0
 
 do k = 1 to file.0
