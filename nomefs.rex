@@ -1,6 +1,6 @@
 /* Find which mef3 files are missing */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.9.1  4/11/2017 */
+/* Version 1.9.2  4/11/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -15,7 +15,7 @@ end
 rc = directory(home)
 rc = SysFileDelete(nomefs-jh.csv)
 rc = SysFileDelete(nomefs.csv)
-rc = SysFileTree('*.mef3','file','FO')
+rc = SysFileTree('*.mef3','file','FOI')
 if (file.0 == 0) then call finish
 dev1 = "something"
 device.0 = 0
