@@ -5,7 +5,7 @@ rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
 if fileinv="" then do
-rc = SysFileTree('..\*.csv','init','FO')
+rc = SysFileTree('..\*.csv','init','FOI')
   do c = 1 to init.0
     say init.c
   end
@@ -28,7 +28,7 @@ end
 rc = lineout(fileinv)
 
 rc = SysFileDelete('extramef.csv')
-rc = SysFileTree('*.mef3','file','FO')
+rc = SysFileTree('*.mef3','file','FOI')
 if (file.0 == 0) then call finish
 dev1 = "something"
 
