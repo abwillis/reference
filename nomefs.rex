@@ -1,6 +1,6 @@
 /* Find which mef3 files are missing */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.9  4/11/2017 */
+/* Version 1.9.1  4/11/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -28,8 +28,6 @@ do m = 1 to file.0
   rc = lineout(invfile)
   device.0 = device.0 + 1
 end
-
-
 
 rc = stream(fileinv,"c","open")
 Do While Lines(fileinv)
