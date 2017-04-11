@@ -1,8 +1,9 @@
 /* Find matches in two files... assumes using first column in each, exact matches */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.2  4/11/2017 */
+/* Version 1.3  4/11/2017 */
 rc = SysLoadFuncs()
 home = directory()
+rc = SysFileDelete('compcheck.csv')
 /* 
 Parse ARG fileinv
 if fileinv="" then pull fileinv
@@ -44,7 +45,7 @@ call finish
 
 names:
 say something1 
-rc = lineout('dupcheck.csv',device)
+rc = lineout('compcheck.csv',device)
 return
 
 finish:
