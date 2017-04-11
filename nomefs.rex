@@ -1,6 +1,6 @@
 /* Find which mef3 files are missing */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.8  4/11/2017 */
+/* Version 1.9  4/11/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -13,7 +13,7 @@ rc = SysFileTree('..\*.csv','init','FO')
   pull fileinv
 end
 rc = directory(home)
-rc = SysFileDelete(dupcheck.csv)
+rc = SysFileDelete(nomefs-jh.csv)
 rc = SysFileDelete(nomefs.csv)
 rc = SysFileTree('*.mef3','file','FO')
 if (file.0 == 0) then call finish
@@ -50,7 +50,7 @@ call finish
 
 names:
 say dev1
-rc = lineout('dupcheck.csv',dev1)
+rc = lineout('nomefs-jh.csv',dev1)
 rc = lineout('nomefs.csv',dev1','TheRest)
 return
 
