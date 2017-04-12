@@ -11,7 +11,8 @@ if (file.0 == 0) then call finish
 do k = 1 to file.0
   invfilec = file.k
   invfile = changestr(direc'\',invfilec,'')
-  newfile = changestr(oldenv,invfile,'',1)
+  newfile = strip(invfile,'l',oldenv)
+/*  newfile = changestr(oldenv,invfile,'',1) */
   renfile = newenv||newfile
 
   do while lines(invfile)
