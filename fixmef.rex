@@ -1,6 +1,6 @@
 /* Fix mef file customer environment. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.4  4/12/2017 */
+/* Version 1.5  4/12/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG oldenv newenv
@@ -16,6 +16,8 @@ do k = 1 to file.0
 
   do while lines(invfile)
 	words = linein(invfile)
+	Parse var words test'|'TheRest
+	if (test = '') then words = oldenv'|'TheRest
 	newwords = changestr(oldenv,words,newenv)
 	rc = lineout(renfile,newwords)
   end	
