@@ -1,28 +1,46 @@
 /* Find matches in two files... assumes using first column in each, exact matches */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.3  4/11/2017 */
+/* Version 1.5  4/12/2017 */
 rc = SysLoadFuncs()
 home = directory()
 rc = SysFileDelete('compcheck.csv')
-/* 
-Parse ARG fileinv
-if fileinv="" then pull fileinv
-*/
-pull fileinv1
-pull fileinv2
+ 
+Parse ARG fileinv1 fileinv2
+
+if fileinv1="" then do
+  Say "Filename of first file?"
+  pull fileinv1
+end
+if fileinv2="" then do
+  Say "Filename of second file?"
+  pull fileinv2
+end
 
 Something2.0 = 0
 c1 = 1
+
 Do While Lines(fileinv2)
+    devac = ''
+	ttt = ''
+	hhh = ''
+	TheRest = ''
     text = LineIn(fileinv2)
-    Parse Upper Var inven '"'Something2.c1'"'TheRest
-    if (Something2.c1 == "") then Parse Upper Var inven Something2.c1','TheRest
-    if (TheRest == "") then Parse Upper Var inven Something2.c1':'TheRest
-    if (TheRest == "") then Parse Upper Var inven Something2.c1';'TheRest
-    if (TheRest == "") then Parse Upper Var inven Something2.c1'|'TheRest
+	Parse Upper Var text devac','TheRest
+    if (TheRest == "") then Parse Upper Var text devac';'TheRest
+	if (TheRest == "") then Parse Upper Var text devac':'TheRest
+    if (TheRest == "") then Parse Upper Var text devac'|'TheRest
+	Parse Var devac ttt'"'hhh'"'TheRest
+	if (ttt <> '') then do
+	  Something2.c1 = ttt 
+	end
+	else do
+	  say "else"
+	  Something2.c1 = hhh
+	end  
 	c1 = c1 + 1
-	Something2.0 = Something2.0 + 1
+    Something2.0 = Something2.0 + 1
 end
+
 rc = lineout(fileinv2)
 
 Do While Lines(fileinv1)
@@ -45,7 +63,7 @@ call finish
 
 names:
 say something1 
-rc = lineout('compcheck.csv',device)
+rc = lineout('compcheck.csv',something1)
 return
 
 finish:
