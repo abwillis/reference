@@ -1,6 +1,6 @@
 /* Fix mef file customer environment. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.8  4/12/2017 */
+/* Version 1.9  4/12/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG oldenv newenv
@@ -45,6 +45,9 @@ say "fixmef with no arguments --  This screen"
 say "If the only change is the case, currently it will need to be run twice,"
 say "the first time with a temp name for the newenv and the second time with"
 say "the temp name as the oldenv."
+
+finish:
+
 
 
 finish:
