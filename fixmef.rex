@@ -1,6 +1,6 @@
 /* Fix mef file customer environment. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.7  4/12/2017 */
+/* Version 1.8  4/12/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG oldenv newenv
@@ -11,7 +11,7 @@ if (file.0 == 0) then call finish
 do k = 1 to file.0
   invfilec = file.k
   invfile = changestr(direc'\',invfilec,'')
-  newfile = changestr(oldenv,invfile,'')
+  newfile = changestr(oldenv,invfile,'',1)
   renfile = newenv||newfile
 
   do while lines(invfile)
