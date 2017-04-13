@@ -1,12 +1,13 @@
 /* Find matches in two files... assumes using first column in each, exact matches */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.6  4/13/2017 */
+/* Version 1.7  4/13/2017 */
 rc = SysLoadFuncs()
 home = directory()
 rc = SysFileDelete('compcheck.csv')
 rc = SysFileDelete('nomatch.csv')
+lognom1 = ""
 
-Parse ARG fileinv1 fileinv2
+Parse ARG fileinv1 fileinv2 lognom1
 
 if fileinv1="" then do
   Say "Filename of first file?"
@@ -15,7 +16,14 @@ end
 if fileinv2="" then do
   Say "Filename of second file?"
   pull fileinv2
+  if lognom1="" then do
+    Say "Do you want to log non-matches? Y/N"
+	pull lognom1
+  end	
 end
+
+Parse Upper Var lognom1 lognom +1 .
+say lognom
 
 Something2.0 = 0
 c1 = 1
@@ -57,7 +65,7 @@ Do While Lines(fileinv1)
     if (something1 == Something2.m) then match = 1
   end
   if (match == 1) then call names
-  if (match == 0) then call nonames
+  if (match == 0) & (lognom == 'Y') then call nonames
 
 end
 rc = lineout(fileinv1)
