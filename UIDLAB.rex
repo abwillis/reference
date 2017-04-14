@@ -30,14 +30,16 @@ do m = 1 to file.0
     combined.0 = combined.0 + 1
   end
   rc = lineout(invfile)
+/*  say m/file.0 * 100 */
 end
 
 rc = stream(fileinv,"c","open")
+say "mef part done"
 Do While Lines(fileinv)
   inven = LineIn(fileinv)
   Parse Var inven UID2','LAB2','.
   check = changestr("'",UID2,'')','LAB2
-  rc = lineout('UIDLAB.csv',check' --------------------)
+  rc = lineout('UIDLAB.csv',check' --------------------')
 
   do k = 1 to combined.0
     Parse Var combined.k host'|'UIDLAB
