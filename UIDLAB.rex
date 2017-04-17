@@ -1,6 +1,6 @@
 /* Find servers to match ID/labels in mapfile */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.8  4/15/2017 */
+/* Version 1.9  4/17/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -34,7 +34,8 @@ do m = 1 to file.0
   invfile = file.m
   do while lines(invfile)
     text = LineIn(invfile)
-    Parse Var text .'|'.'|'hostname'|'OS'|'UID'|'.'|'label'|'.
+    Parse Var text .'|'.'|'hostname'|'OS'|'UIDc'|'.'|'label'|'.
+    Parse UPPER Var UIDc UID
 	check = UID','label
 	if (UID <> 'NOTaRealID-IEM') then 
     do n = 1 to combined.0
