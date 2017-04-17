@@ -1,6 +1,6 @@
 /* Find servers to match ID/labels in mapfile */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.7  4/15/2017 */
+/* Version 1.8  4/15/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -10,7 +10,7 @@ rc = SysFileTree('..\*.csv','init','FOI')
     say init.c
   end
   say "Inventory filename?"
-  pull fileinv
+  parse pull fileinv
 end
 rc = directory(home)
 rc = SysFileDelete('UIDLAB.csv')
@@ -20,7 +20,7 @@ if (file.0 == 0) then call finish
 
 combined.0 = 0
 n = 1
-rc = stream(fileinv,"c","open")
+rc = stream(fileinv,"c","open read")
 Do While Lines(fileinv)
   inven = LineIn(fileinv)
   Parse Var inven UID2','LAB2','.
@@ -28,7 +28,7 @@ Do While Lines(fileinv)
   n = n + 1
   combined.0 = combined.0 + 1
 end  
-rc = lineout(fileinv)
+rc = stream(fileinv,"c","close")
 rc = lineout('UIDLAB.csv','UID,Label,hostname,OS')
 do m = 1 to file.0
   invfile = file.m
