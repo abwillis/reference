@@ -1,6 +1,6 @@
 /* Find servers to match ID/labels in mapfile */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.6  4/15/2017 */
+/* Version 1.7  4/15/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -29,7 +29,7 @@ Do While Lines(fileinv)
   combined.0 = combined.0 + 1
 end  
 rc = lineout(fileinv)
-lineout('UIDLAB.csv','UID,Label,hostname,OS')
+rc = lineout('UIDLAB.csv','UID,Label,hostname,OS')
 do m = 1 to file.0
   invfile = file.m
   do while lines(invfile)
