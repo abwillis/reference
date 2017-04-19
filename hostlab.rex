@@ -1,6 +1,6 @@
 /* Find servers to match ID/labels in mapfile */
 /* Envisioned, designed and written by Andy Willis */
-/* Version test 1.6  4/18/2017 */
+/* Version test 1.7.1  4/18/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -36,8 +36,8 @@ do m = 1 to file.0
     Parse UPPER Var UIDc UID
     if ((UID <> 'NOTaRealID-IEM') & (UID <> 'NOTaRealID')) then hold = changestr("'",hostname'|'OS'|'UID','label,'')
     combined.n = changestr("'",hold,'')
+    combined.0 = n
     n = n + 1
-    combined.0 = combined.0 + 1
   end
 rc = lineout(invfile)
 /*  say m/file.0 * 100 */
@@ -56,6 +56,7 @@ Do While Lines(fileinv)
   end
   check = changestr('"',(changestr("'",UID2,'')','LAB3),'')
   rc = lineout(output,check' --------------------')
+  rc = lineout(output,',')
 
   do k = 1 to combined.0
     Parse Var combined.k host'|'OS1'|'UIDLAB
