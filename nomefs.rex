@@ -1,18 +1,22 @@
 /* Find which mef3 files are missing */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.9.3  4/11/2017 */
+/* Version 2.0  19Apr2017 */
+
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
+
 if fileinv="" then do
-rc = SysFileTree('..\*.csv','init','FO')
+rc = directory(..)
+rc = SysFileTree('*.csv','init','FOI')
+rc = directory(home)
   do c = 1 to init.0
     say init.c
   end
   say "Inventory filename?"
   pull fileinv
 end
-rc = directory(home)
+
 rc = SysFileDelete('nomefs-jh.csv')
 rc = SysFileDelete('nomefs.csv')
 rc = SysFileTree('*.mef3','file','FOI')

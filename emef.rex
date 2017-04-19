@@ -1,6 +1,6 @@
 /* Find extra mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.8  19Apr2017 */
+/* Version 1.9  20Apr2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -30,14 +30,14 @@ Do While Lines(fileinv)
     if (TheRest == "") then Parse Upper Var inven devac'|'TheRest
 	Parse Var devac ttt'"'hhh'"'TheRest
 	if (ttt <> '') then do
-	  deva.c1 = ttt 
+	  deva.c1 = ttt
 	end
 	else do
 	  say "else"
 	  deva.c1 = hhh
-	end  
+	end
+    deva.0 = c1
 	c1 = c1 + 1
-    deva.0 = deva.0 + 1
 end
 rc = lineout(fileinv)
 
@@ -55,7 +55,8 @@ do k = 1 to file.0
   match = 0
   
   Do md = 1 to deva.0
-    if (deva.md == device) then match = 1
+    check = deva.md
+    if (check == device) then match = 1
   end
  
  if (match == 0) then call names
