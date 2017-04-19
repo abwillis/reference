@@ -1,5 +1,5 @@
 /* REXX ECM Inventory cleanup */
-/* Version 1.0 4Apr2017 */
+/* Version 1.1 19Apr2017 */
 /* Envisioned, designed and written by Andy Willis */
 
 rc = SysLoadFuncs()
@@ -53,19 +53,19 @@ rc = lineout(csvfile)
 call finish
 
 filelist:
-rc = SysFileTree('*Inv*.csv','file','FO')
+rc = SysFileTree('*Inv*.csv','file','FOI')
 do k = 1 to file.0
   test = file.k
   say test
 end
 
-rc = SysFileTree('*IDMCOMP*.csv','file','FO')
+rc = SysFileTree('*IDMCOMP*.csv','file','FOI')
 do k = 1 to file.0
 test = file.k
 say test
 end
 
-rc = SysFileTree('*Cust*.csv','file','FO')
+rc = SysFileTree('*Cust*.csv','file','FOI')
 do k = 1 to file.0
 test = file.k
 say test
