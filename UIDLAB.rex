@@ -1,20 +1,21 @@
 /* Find servers to match ID/labels in mapfile */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.3  4/18/2017 */
+/* Version 2.4.1  4/19/2017 */
 rc = SysLoadFuncs()
 home = directory()
-Parse ARG fileinv
+Parse ARG fileinv /* This file can be anywhere, even if not specified on the command line but listing will only be of most likley location */
 
 if fileinv="" then do
-rc = SysFileTree('..\*.csv','init','FOI')
+rc = directory(..)
+rc = SysFileTree('*.csv','init','FOI')
+rc = directory(home)
   do c = 1 to init.0
     say init.c
   end
-  say "Inventory filename?"
+  say "Path (in relation to "home") and filename of inventory file? "
   parse pull fileinv
 end
 
-rc = directory(home)
 above = xrange('80'x,'FF'x) /* Needed due to possible extended ascii we will check below */
 output = 'UIDLAB.csv'
 rc = SysFileDelete('output')
