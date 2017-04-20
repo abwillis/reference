@@ -1,6 +1,6 @@
 /* Find which mef3 files are missing */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.0  19Apr2017 */
+/* Version 2.1  20Apr2017 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -14,11 +14,12 @@ rc = directory(home)
     say init.c
   end
   say "Inventory filename?"
-  pull fileinv
+  Parse pull fileinv
 end
 
 rc = SysFileDelete('nomefs-jh.csv')
 rc = SysFileDelete('nomefs.csv')
+
 rc = SysFileTree('*.mef3','file','FOI')
 if (file.0 == 0) then call finish
 dev1 = "something"
