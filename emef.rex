@@ -1,6 +1,6 @@
 /* Find extra mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.9  20Apr2017 */
+/* Version 2.0  20Apr2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -33,7 +33,6 @@ Do While Lines(fileinv)
 	  deva.c1 = ttt
 	end
 	else do
-	  say "else"
 	  deva.c1 = hhh
 	end
     deva.0 = c1
@@ -44,6 +43,7 @@ rc = lineout(fileinv)
 rc = SysFileDelete('extramef.csv')
 rc = SysFileDelete('extramef-h.csv')
 rc = SysFileDelete('extramef-b.csv')
+
 rc = SysFileTree('*.mef3','file','FOI')
 if (file.0 == 0) then call finish
 
@@ -55,11 +55,11 @@ do k = 1 to file.0
   match = 0
   
   Do md = 1 to deva.0
-    check = deva.md
-    if (check == device) then match = 1
+    if (device == deva.md) then match = 1
   end
  
  if (match == 0) then call names
+ match = 0
 end
 
 call finish
