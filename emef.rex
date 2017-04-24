@@ -1,6 +1,6 @@
 /* Find extra mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.0  20Apr2017 */
+/* Version 2.1  24Apr2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -28,7 +28,7 @@ Do While Lines(fileinv)
     if (TheRest == "") then Parse Upper Var inven devac';'TheRest
 	if (TheRest == "") then Parse Upper Var inven devac':'TheRest
     if (TheRest == "") then Parse Upper Var inven devac'|'TheRest
-	Parse Var devac ttt'"'hhh'"'TheRest
+	Parse Upper Var devac ttt'"'hhh'"'TheRest
 	if (ttt <> '') then do
 	  deva.c1 = ttt
 	end
