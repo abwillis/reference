@@ -1,29 +1,25 @@
 /* Fix mef file customer environment. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.9  4/12/2017 */
+/* Version 2.0  24Apr2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG oldenv newenv
+
 if (oldenv == '') then call help
-rc = SysFileTree(oldenv'*','file','FO')
+
+rc = SysFileTree(oldenv'*','file','FOI')
 direc = Directory()
 if (file.0 == 0) then call finish
+
 do k = 1 to file.0
   invfilec = file.k
-  invfile = changestr(direc'\',invfilec,'')
+  invfile1 = changestr(direc'\',invfilec,'')
+  invfile = changestr(direc'/',invfile1,'')
   newfile = strip(invfile,'l',oldenv)
-/*  newfile = changestr(oldenv,invfile,'',1) */
   renfile = newenv||newfile
 
   do while lines(invfile)
 	words = linein(invfile)
-/*
-	Parse var words test'|'TheRest
-	if (test = '') then words = oldenv'|'TheRest
-	Parse var words test'|'TheRest
-	if (test <> oldenv) then words = oldenv'|'TheRest
-	newwords = changestr(oldenv,words,newenv)
-*/
     Parse var words holdit'|'TheRest
     newwords = newenv'|'TheRest
 	rc = lineout(renfile,newwords)
@@ -46,8 +42,6 @@ say "fixmef with no arguments --  This screen"
 say "If the only change is the case, currently it will need to be run twice,"
 say "the first time with a temp name for the newenv and the second time with"
 say "the temp name as the oldenv."
-
-finish:
 
 
 
