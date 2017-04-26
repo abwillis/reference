@@ -1,11 +1,11 @@
 /* Find duplicate mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.5  19Apr2017 */
+/* Version 2.0  26Apr2017 */
 rc = SysLoadFuncs()
 home = directory()
 
 rc = SysFileDelete('dupcheck.csv')
-rc = SysFileTree('*.mef3','file','FOI')
+rc = SysFileTree('*.mef3','file','FO')
 if (file.0 == 0) then call finish
 
 do k = 1 to file.0
@@ -23,16 +23,22 @@ end
 call finish
 
 names:
-/* Remove duplicates that I have currently */
-/*
+
 do x = 1 to howm.0
+  new = 0
   listfile = howm.x
-  say listfile 
-  rc = lineout('dupcheck.csv',listfile)
+  do while lines('dupcheck.csv')
+    checkit = LineIn('dupcheck.csv')
+    Parse var checkit lineup
+    if (lineup == listfile) then new = 1
+  end
+  rc = LineOut('dupcheck.csv')
+  if (new == 0) then do
+    say listfile
+    rc = lineout('dupcheck.csv',listfile)
+  end
 end
-*/
-listfile = howm.1
-rc = lineout('dupcheck.csv',listfile)
+
 return
 
 
