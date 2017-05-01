@@ -1,6 +1,6 @@
 /* Find matches in two files... assumes using first column in each, exact matches */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.8  4/13/2017 */
+/* Version 2.0  4/13/2017 */
 rc = SysLoadFuncs()
 home = directory()
 rc = SysFileDelete('compcheck.csv')
@@ -42,7 +42,6 @@ Do While Lines(fileinv2)
 	  Something2.c1 = ttt 
 	end
 	else do
-	  say "else"
 	  Something2.c1 = hhh
 	end
     Something2.0 = c1
@@ -50,29 +49,46 @@ Do While Lines(fileinv2)
 
 end
 
-rc = lineout(fileinv2)
+Say c1-1 " records in first file"
 
+rc = lineout(fileinv2)
+howmany = 0
+nummatches = 0
 Do While Lines(fileinv1)
+howmany = howmany + 1
   inven = LineIn(fileinv1)
-  Parse Upper Var inven '"'Something1'"'TheRest
-  if (Something1 == "") then Parse Upper Var inven Something1','TheRest
-  if (TheRest == "") then Parse Upper Var inven Something1':'TheRest
-  if (TheRest == "") then Parse Upper Var inven Something1';'TheRest
-  if (TheRest == "") then Parse Upper Var inven Something1'|'TheRest
+  Parse Upper Var inven Some1','TheRest
+  if (TheRest == "") then Parse Upper Var inven Some1';'TheRest
+  if (TheRest == "") then Parse Upper Var inven Some1':'TheRest
+  if (TheRest == "") then Parse Upper Var inven Some1'|'TheRest
+  Parse Var Some1 ttt'"'hhh'"'TheRest
+	if (ttt <> '') then do
+	  Something1 = ttt 
+	end
+	else do
+	  Something1 = hhh
+	end
+    
   match = 0
 
   Do m = 1 to Something2.0
-    if (something1 == Something2.m) then match = 1
+    if (something1 == Something2.m) then do
+      match = 1
+      m = Something2.0
+    end
   end
   if (match == 1) then call names
   if (match == 0) & (lognom == 'Y') then call nonames
 
 end
 rc = lineout(fileinv1)
+say howmany " records in second file"
+say nummatches " matches"
 call finish
 
 names:
-say something1
+/* say something1 */
+nummatches = nummatches + 1
 rc = lineout('compcheck.csv',something1)
 return
 
