@@ -1,6 +1,6 @@
 /* REXX Calculate days and business days from today */
 /* Envisioned/designed/developed by Andy Willis */
-/* Version 1.1 03May2017 */
+/* Version 1.2 03May2017 */
 Parse Arg DayCnt
 if DayCnt = '' then do
   say "How many days back? Negative is back to the future."
@@ -39,17 +39,26 @@ else do
 busdays = Today - daysall
 end
 
+mydate = Date('N',daydif,'B')
+mybusdate = Date('N',busdays,'B')
+myusdate = Date('USA',daydif,'B')
+myusbusdate = Date('USA',busdays,'B')
 
-parse value Date('N',daydif,'B') with day' 'Mon' 'year
-parse value Date('N',busdays,'B') with bday' 'bMon' 'byear
+parse var mydate day' 'Mon' 'year
+parse var mybusdate bday' 'bMon' 'byear
+parse var myusdate uday'/'uMon'/'.
+parse var myusbusdate ubday'/'ubMon'/'ubyear
+
 say
 say DayCnt "Days back "
-say Date('N',daydif,'B') 
-say Date('USA',daydif,'B')
+say mydate 
+say myusdate
+say uday'/'uMon'/'year
 say day||Mon||year
 say
 say DayCnt "Weekdays back  Which is "daysall" totals days."
-say Date('N',busdays,'B')
-say Date('USA',busdays,'B')
+say mybusdate
+say myusbusdate
+say ubday'/'ubMon'/'byear
 say bday||bMon||byear
 
