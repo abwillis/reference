@@ -1,6 +1,7 @@
 :Date
 @echo off
-REM Public Domain Date subtraction code
+REM Initial subtraction code from Public Domain 
+REM Revised and extended for business days and forward or backward by Andy Willis
 REM Version 2.5 08Feb2017
 set yyyy=
 set dayCnt=%1
