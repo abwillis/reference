@@ -1,6 +1,6 @@
 /* Find matches in two files... assumes using first column in each, exact matches */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.0  4/13/2017 */
+/* Version 2.1  04May2017 */
 rc = SysLoadFuncs()
 home = directory()
 rc = SysFileDelete('compcheck.csv')
@@ -49,7 +49,7 @@ Do While Lines(fileinv2)
 
 end
 
-Say c1-1 " records in first file"
+Say c1-1 " records in Second file"
 
 rc = lineout(fileinv2)
 howmany = 0
@@ -82,7 +82,7 @@ howmany = howmany + 1
 
 end
 rc = lineout(fileinv1)
-say howmany " records in second file"
+say howmany " records in first file"
 say nummatches " matches"
 call finish
 
