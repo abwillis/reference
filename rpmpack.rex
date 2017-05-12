@@ -10,6 +10,6 @@ address cmd 'yum list |grep install >'fileinv
 do while Lines(fileinv)
   text = LineIn(fileinv)
   parse var text package'.'.
-  rc = Lineout(fileout,'yum install 'package)
+  rc = Lineout(fileout,'yum install -y 'package)
 end
 rc = SysFileDelete(fileinv)
