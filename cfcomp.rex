@@ -1,6 +1,6 @@
 /* Find matches in two files... assumes using first column in each, exact matches */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.1  04May2017 */
+/* Version 2.2  11May2017 */
 rc = SysLoadFuncs()
 home = directory()
 rc = SysFileDelete('compcheck.csv')
@@ -57,16 +57,16 @@ nummatches = 0
 Do While Lines(fileinv1)
 howmany = howmany + 1
   inven = LineIn(fileinv1)
-  Parse Upper Var inven Some1','TheRest
-  if (TheRest == "") then Parse Upper Var inven Some1';'TheRest
-  if (TheRest == "") then Parse Upper Var inven Some1':'TheRest
-  if (TheRest == "") then Parse Upper Var inven Some1'|'TheRest
-  Parse Var Some1 ttt'"'hhh'"'TheRest
+  Parse Upper Var inven Some1','TheRest1
+  if (TheRest1 == "") then Parse Upper Var inven Some1';'TheRest1
+  if (TheRest1 == "") then Parse Upper Var inven Some1':'TheRest1
+  if (TheRest1 == "") then Parse Upper Var inven Some1'|'TheRest1
+  Parse Var Some1 ttt1'"'hhh1'"'TheRest
 	if (ttt <> '') then do
-	  Something1 = ttt 
+	  Something1 = ttt1 
 	end
 	else do
-	  Something1 = hhh
+	  Something1 = hhh1
 	end
     
   match = 0
