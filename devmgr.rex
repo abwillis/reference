@@ -1,5 +1,5 @@
 /* REXX MGR-Devices cleanup for Storage */
-/* Version 1.4 06Jun2017 */
+/* Version 1.5 06Jun2017 */
 /* Envisioned, designed and written by Andy Willis */
 
 rc = SysLoadFuncs()
@@ -12,7 +12,7 @@ if (csvfile == '') then call filelist
 
 if (account == '') then call getaccnt
 
-newfile = account'-'DEVICES'.csv'
+newfile = account'-storage-'DEVICES'.csv'
 
 junk = linein(csvfile) /* eat the first line as we don't want it in the final output */
 Do While Lines(csvfile)
