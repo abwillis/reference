@@ -1,6 +1,6 @@
 /* Find extra mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.1  24Apr2017 */
+/* Version 2.2  13Jun2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -13,7 +13,7 @@ if fileinv="" then do
     say init.c
   end
   say "Inventory filename?"
-  pull fileinv
+  parse pull fileinv
 end
 
 deva.0 = 0
