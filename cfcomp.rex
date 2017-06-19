@@ -1,6 +1,6 @@
 /* Find matches in two files... assumes using first column in each, exact matches */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.2  11May2017 */
+/* Version 2.3  19Jun2017 */
 rc = SysLoadFuncs()
 home = directory()
 rc = SysFileDelete('compcheck.csv')
@@ -21,6 +21,11 @@ if fileinv2="" then do
 	pull lognom1
   end	
 end
+
+if ((fileinv1=='nomatch.csv') | (fileinv2=='nomatch.csv')) then do
+  say "Nomatch.csv used by this program and as we already deleted it, if we were to proceed the comparison would be bogus."
+  call finish
+end 
 
 Parse Upper Var lognom1 lognom +1 .
 
