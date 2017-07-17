@@ -1,10 +1,12 @@
 /* Find matches in two files... assumes using first column in each, exact matches */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.3  19Jun2017 */
+/* Version 2.5  14Jul2017 */
 rc = SysLoadFuncs()
 home = directory()
 rc = SysFileDelete('compcheck.csv')
 rc = SysFileDelete('nomatch.csv')
+rc = SysFileDelete('compfull.csv')
+rc = SysFileDelete('nomatchfull.csv')
 lognom1 = ""
 
 Parse ARG fileinv1 fileinv2 lognom1
@@ -95,10 +97,12 @@ names:
 /* say something1 */
 nummatches = nummatches + 1
 rc = lineout('compcheck.csv',something1)
+rc = lineout('compfull.csv',inven)
 return
 
 nonames:
 rc = lineout('nomatch.csv',something1)
+rc = lineout('nomatchfull.csv',inven)
 return
 
 finish:
