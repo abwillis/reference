@@ -1,6 +1,6 @@
 /* Find extra mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.2  13Jun2017 */
+/* Version 2.3  17Jul2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -55,7 +55,13 @@ do k = 1 to file.0
   match = 0
   
   Do md = 1 to deva.0
-    if (device == deva.md) then match = 1
+    if (device == deva.md) then do 
+       match = 1
+       end
+       else do
+       Parse var device devt'.'.
+       if (devt == deva.md) then match = 1
+       end
   end
  
  if (match == 0) then call names

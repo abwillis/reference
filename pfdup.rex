@@ -1,9 +1,8 @@
 /* Find duplicate mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.7  13Jul2017 */
+/* Version 2.8  17Jul2017 */
 rc = SysLoadFuncs()
 home = directory()
-Parse Arg req
 
 rc = SysFileDelete('dupcheck.csv')
 rc = SysFileDelete('wrongfile.csv')
@@ -22,11 +21,9 @@ do k = 1 to file.0
   checkfile = '*'device'.mef3'
   rc = SysFileTree(checkfile,'howm','FOI')
   if (howm.0 == 0) then do
-    if (req == '') then do 
       Parse Var device dev1'.'.
       checkfile = '*'dev1'.mef3'
       rc = SysFileTree(checkfile,'howm','FOI')
-    end
   end
   if (howm.0 == 0) then call wrongstuff
   else if (howm.0 > 1) then call names
