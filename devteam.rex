@@ -1,4 +1,7 @@
-/* USA delivery team migration 1.0 10Apr2017 */
+/* USA delivery team migration */
+/* Envisioned/designed/developed by Andy Willis */
+/* Version 1.1 19Jul2017 */
+
 Org = 'SARM'
 Cntry = 'USA'
 Per = '8x5'
@@ -26,3 +29,4 @@ rc = LineOut('DTeam.csv',info)
 signal getinfo
 
 finish:
+
