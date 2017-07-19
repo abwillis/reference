@@ -1,6 +1,6 @@
 /* USA devices migration */
 /* Envisioned/designed/developed by Andy Willis */
-/* Version 1.1 19Jul2017 */
+/* Version 1.3 19Jul2017 */
 
 Num = 0
 Say 'Device migration form'
@@ -25,10 +25,11 @@ If (mefs == 'Y') then do
     invfile = file.k
     rc = stream(invfile,"c","open")
     text = LineIn(invfile,1,1)
-    Parse Var text Something'|'Something'|'device1'|'Something
+    Parse Var text .'|'.'|'device1'|'Plat'|'.
     Parse var device1 device'.'Something
     rc = lineout(invfile)
     devm.k = device
+    Parse Upper var Plat platm.k
   end
 end
 
@@ -37,7 +38,7 @@ Num = Num + 1
 
 HostName = ''
 IP = '0.0.0.0' /* We will assume 0.0.0.0 if no IP given */
-Status = 'Migration'
+Status = 'MIGRATION'
 Environment = ''
 DelT = ''
 Platform = ''
@@ -83,27 +84,40 @@ Pull Status
 */
 
 Say 'Environment - Customer environment name'
-EnvReq:
 Pull Environment
-If (Environment == '') then do
-  Say 'Environment required'
-  signal EnvReq
+do While (Environment == '')
+  Say 'Environment is required:'
+  Pull Environment
 end
 
 Say 'Delivery Team - Delivery Team name that carried out the requests for this device'
-DTReq:
-Pull DelT
-If (DelT == '') then do
-  Say 'Delivery Team required'
-  signal DTReq
+do While (DelT == '')
+  Say 'Delivery Team is required'
+  Pull DelT
 end
 
-Say 'Platform - Platform Name'
-PNReq:
+if (mefs == 'Y') then do
+  if (num <= file.0) then do
+      Platform = platm.num
+      say ''
+      Say 'Platform is 'Platform
+      say ''
+  end 
+  else do
+    Say 'Platform - Platform Name'
+    Pull Platform
+    do While (Platform == '')
+      Say 'Platform is required'
+      Pull Platform
+    end
+  end
+end
+else do
+  Say 'Platform - Platform Name'
 Pull Platform
-If (Platform == '') then do
-  Say 'Platform required'
-  signal PNReq
+  do While (Platform == '')
+    Pull Platform
+  end
 end
 
 /*
@@ -112,11 +126,9 @@ Pull Auto
 */
 
 Say 'Role - Name of the role of the device where the possible entries are : STAND ALONE, PRIMARY DOMAIN CONTROLLER (NT4), LDAP MEMBER, CLUSTER MEMBER, SP NODE, BACKUP DOMAIN CONTROLLER (NT4), LDAP, LDAP SERVER, CLUSTER MASTER, SP CONTROL WORKSTATION'
-RoleReq:
-Pull Role
-If (Role == '') then do
+do While (Role == '')
   Say 'Role required'
-  signal RoleReq
+  Pull Role
 end
 
 Say 'Master device - Name of the master device of this device'
