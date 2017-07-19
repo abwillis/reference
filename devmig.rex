@@ -1,6 +1,6 @@
 /* USA devices migration */
 /* Envisioned/designed/developed by Andy Willis */
-/* Version 1.0 19Jul2017 */
+/* Version 1.1 19Jul2017 */
 
 Num = 0
 Say 'Device migration form'
@@ -12,6 +12,25 @@ Say 'Leave Device Name empty to finish'
 
 Say 'Account?'
 Parse pull Account
+Parse Upper Arg mefs
+
+If (mefs == 'Y') then do
+  rc = SysFileTree('*.mef3','file','FO')
+  if (file.0 == 0) then do
+    Say 'Mefs parameter given but no mefs available.  Quitting.'
+    signal finish
+  end
+
+  do k = 1 to file.0
+    invfile = file.k
+    rc = stream(invfile,"c","open")
+    text = LineIn(invfile,1,1)
+    Parse Var text Something'|'Something'|'device1'|'Something
+    Parse var device1 device'.'Something
+    rc = lineout(invfile)
+    devm.k = device
+  end
+end
 
 Beginhere: /* We will reset everything just in case */
 Num = Num + 1
@@ -35,10 +54,24 @@ LCpriv = ''
 Connection = '' /* If we stop assuming automatic is no, we will need to take this into account too */
 ECMMap = '' /* This is normally left blank so for now I am not asking for it */
 
-Say 'Input information for  device #'num
-Say 'Device name (hostname) or leave blank to end'
-Pull HostName
-If (HostName == '') then signal finish
+if (mefs == 'Y') then do
+  if (num <= file.0) then do
+    HostName = devm.num
+    Say 'Hostname is 'HostName
+  end
+  else do
+    Say 'Input information for  device #'num
+    Say 'Device name (hostname) or leave blank to end'
+    Pull HostName
+    If (HostName == '') then signal finish
+  end
+end
+else do
+  Say 'Input information for  device #'num
+  Say 'Device name (hostname) or leave blank to end'
+  Pull HostName
+  If (HostName == '') then signal finish
+end
 
 Say 'Device IP - defaults to 0.0.0.0 - we do not verify the IP is of valid syntax'
 Parse Pull IP
@@ -59,7 +92,7 @@ end
 
 Say 'Delivery Team - Delivery Team name that carried out the requests for this device'
 DTReq:
-Parse Pull DelT
+Pull DelT
 If (DelT == '') then do
   Say 'Delivery Team required'
   signal DTReq
@@ -80,7 +113,7 @@ Pull Auto
 
 Say 'Role - Name of the role of the device where the possible entries are : STAND ALONE, PRIMARY DOMAIN CONTROLLER (NT4), LDAP MEMBER, CLUSTER MEMBER, SP NODE, BACKUP DOMAIN CONTROLLER (NT4), LDAP, LDAP SERVER, CLUSTER MASTER, SP CONTROL WORKSTATION'
 RoleReq:
-Parse Pull Role
+Pull Role
 If (Role == '') then do
   Say 'Role required'
   signal RoleReq
