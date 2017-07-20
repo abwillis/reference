@@ -1,6 +1,6 @@
 /* USA devices migration */
 /* Envisioned/designed/developed by Andy Willis */
-/* Version 1.5 20Jul2017 */
+/* Version 1.5.1 20Jul2017 */
 
 home = Directory()
 Num = 0
@@ -126,7 +126,7 @@ else do
   Say 'Device IP - defaults to 0.0.0.0 - we do not verify the IP is of valid syntax'
   Parse Pull IP
 end
-If (IP == '') then IP = '0.0.0.0'
+If (IP == '') then IP = '0.0.0.0' /* Assuming 0.0.0.0 if no IP given */
 
 /*
 Say 'Status - Classification of the device status where the possible entries are : AVAILABLE / UNAVAILABLE / MIGRATION'
