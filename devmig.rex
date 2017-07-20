@@ -1,23 +1,45 @@
 /* USA devices migration */
 /* Envisioned/designed/developed by Andy Willis */
-/* Version 1.3 19Jul2017 */
+/* Version 1.5 20Jul2017 */
 
+home = Directory()
 Num = 0
 Say 'Device migration form'
-Say 'There is no input validation occuring, other than for some fields that _something_ was supplied'
-Say 'If empty is valid, just hit enter... if empty is not valid you will be prompted'
-Say 'Currently assuming Status is migration (should normally be for new devices), automatic = NO, Connection therefore is blank, and ECMMap is left blank'
-Say 'If needed can uncomment those questions.'
-Say 'Leave Device Name empty to finish'
+Say 'There is no input validation occuring, other than for some fields that require _something_ be supplied:'
+Say 'If empty is valid, just hit enter... if empty is not valid you will be prompted.'
+Say 'Currently assuming Status is migration (should normally be for new devices), automatic = NO, Connection therefore is blank, and ECMMap is left blank.'
+/* If needed can uncomment those questions to no longer default the above */
+Say 'Leave Device Name empty and hit enter to finish'
 
 Say 'Account?'
 Parse pull Account
-Parse Upper Arg mefs
+
+rc = SysFileTree(Account'-device-migration.csv','exist','FO')
+if (exist.0 = 0) then do 
+  rc = Lineout(Account'-device-migration.csv','Hostname:IP:status:environment:delivery team:platform:automated:deveice role:master device:description:Last IBM QEV:Last IBM CBN:Last IBM Privilege Revalidation:Last Customer QEV:Last Customer CBN:Last Customer Privilege Revalidation:connection:ECM Mapping Name')
+/* Only add header if file does not exist, this allows adding to existing file */
+  Say 'You will need to remove header before submitting, you should look at the output anyhow'
+end
+
+Say 'Use Mef3 files? (Y if yes)'
+Pull mefs
+
+Say 'Use ECM? (Y if yes) Assumes an ecminv converted IDCOMP file.'
+Pull ECMQues
+
+If (ECMQues == 'Y') then do
+  call filelist
+  rc = Directory(..)
+  call filelist
+  rc = Directory(home)
+  Say 'ECM filename?'
+  Parse Pull ECMFile
+end
 
 If (mefs == 'Y') then do
   rc = SysFileTree('*.mef3','file','FO')
   if (file.0 == 0) then do
-    Say 'Mefs parameter given but no mefs available.  Quitting.'
+    Say 'Use Mefs answered Y but no mefs available.  Quitting.'
     signal finish
   end
 
@@ -33,11 +55,23 @@ If (mefs == 'Y') then do
   end
 end
 
+If (ECMQues == 'Y') then do
+  servnum = 0
+  do while Lines(ECMFile)
+    servnum = servnum + 1
+    newline = LineIn(ECMFile)
+    Parse UPPER VAR newline hname','.','.','.','.','.','.','IPA','
+    hnames.servnum = hname
+    IPAs.servnum = IPA
+  end
+say servnum
+end
+
 Beginhere: /* We will reset everything just in case */
 Num = Num + 1
 
 HostName = ''
-IP = '0.0.0.0' /* We will assume 0.0.0.0 if no IP given */
+IP = ''
 Status = 'MIGRATION'
 Environment = ''
 DelT = ''
@@ -74,8 +108,24 @@ else do
   If (HostName == '') then signal finish
 end
 
-Say 'Device IP - defaults to 0.0.0.0 - we do not verify the IP is of valid syntax'
-Parse Pull IP
+If (ECMQues = 'Y') then do 
+  do j=1 to servnum
+    if (hnames.j == HostName) then do 
+      IP = IPAs.j
+      j = servnum
+      say IP
+    end
+  end
+  if IP = '' then do
+    say 'IP not set by ECM file'
+    Say 'Device IP - defaults to 0.0.0.0 - we do not verify the IP is of valid syntax'
+    Parse Pull IP
+  end
+end
+else do
+  Say 'Device IP - defaults to 0.0.0.0 - we do not verify the IP is of valid syntax'
+  Parse Pull IP
+end
 If (IP == '') then IP = '0.0.0.0'
 
 /*
@@ -169,6 +219,15 @@ fullstuff = Hostname':'IP':'Status':'Environment':'DelT':'Platform':'Auto':'Role
 
 rc = Lineout(Account'-device-migration.csv',fullstuff)
 signal Beginhere
+
+filelist:
+/* give a list of all Inventory files that have been properly converted */
+rc = SysFileTree('*Inv*.csv','file','FOI')
+do k = 1 to file.0
+  test = file.k
+  say test
+end
+return
 
 finish:
 
