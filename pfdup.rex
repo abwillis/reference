@@ -1,6 +1,6 @@
 /* Find duplicate mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.8  17Jul2017 */
+/* Version 2.9  24Jul2017 */
 rc = SysLoadFuncs()
 home = directory()
 
@@ -18,15 +18,17 @@ do k = 1 to file.0
 /* rc = stream(invfile, 'c', 'close') */
   if (device == '') then call badstuff
 
-  checkfile = '*'device'.mef3'
-  rc = SysFileTree(checkfile,'howm','FOI')
-  if (howm.0 == 0) then do
+  else do
+    checkfile = '*'device'.mef3'
+    rc = SysFileTree(checkfile,'howm','FOI')
+    if (howm.0 == 0) then do
       Parse Var device dev1'.'.
       checkfile = '*'dev1'.mef3'
       rc = SysFileTree(checkfile,'howm','FOI')
+    end
+    if (howm.0 == 0) then call wrongstuff
+    else if (howm.0 > 1) then call names
   end
-  if (howm.0 == 0) then call wrongstuff
-  else if (howm.0 > 1) then call names
 end
 call finish
 
