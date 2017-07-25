@@ -1,6 +1,6 @@
 /* USA devices migration */
 /* Envisioned/designed/developed by Andy Willis */
-/* Version 1.5.1 20Jul2017 */
+/* Version 1.6 25Jul2017 */
 
 home = Directory()
 Num = 0
@@ -86,7 +86,7 @@ Lpriv = ''
 LCQEV = ''
 LCCBN = ''
 LCpriv = ''
-Connection = '' /* If we stop assuming automatic is no, we will need to take this into account too */
+Connection = 'DIRECT' /* If we stop assuming automatic is no, we will need to take this into account too */
 ECMMap = '' /* This is normally left blank so for now I am not asking for it */
 
 if (mefs == 'Y') then do
@@ -181,7 +181,7 @@ do While (Role == '')
   Pull Role
 end
 
-Say 'Master device - Name of the master device of this device'
+Say 'Master device - Name of the master device of this device (case sensitive)'
 Parse Pull MasDev
 
 Say 'Description - Description of device functionality'
