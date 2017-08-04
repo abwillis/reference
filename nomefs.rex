@@ -1,6 +1,6 @@
 /* Find which mef3 files are missing */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.1.1  4Aug2017 */
+/* Version 2.2  4Aug2017 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -28,8 +28,8 @@ device.0 = 0
 do m = 1 to file.0
   invfile = file.m
   text = LineIn(invfile,1,1)
-  Parse Upper Var text .'|'.'|'device1'|'.
-  Parse var device1 device.m'.'.
+  Parse Upper Var text .'|'.'|'device1.m'|'.
+  Parse var device1.m device.m'.'.
   rc = lineout(invfile)
   device.0 = device.0 + 1
 end
@@ -42,6 +42,10 @@ Do While Lines(fileinv)
 
   do k = 1 to device.0
     if (dev1 == device.k) then match = 1
+  end
+
+  if (match == 0) then do l=1 to device.0
+    if (dev1 == device1.l) then match = 1
   end
 
   if (match == 0) then call names
