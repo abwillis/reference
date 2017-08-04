@@ -31,7 +31,7 @@ devmig.rex         -- Creates bulk device migration file
 fixmef.rex         -- Fixes filename and environment (first column of mef3 file)
 devteam.rex        -- Creates dev team bulk migration file
 grpmig.rex         -- creates group bulk migration file (incomplete)
-pfdup.rex          -- Searches current directory for duplicate mef3 files and also checks for some common problems such as                    missing hostname in mef3 file
+pfdup.rex          -- Searches current directory for duplicate mef3 files and also checks for some common problems such as missing hostname in mef3 file
 convert.rex        -- Proof of concept mef3 file conversion (incomplete)
 dircode.cmd        -- create directories on windows using account and quarter as parameters
 GVM.cmd            -- Launch validatemefs, downloads file to make sure latest and gives list of probably files and paths needed as well as date 30 days ago
