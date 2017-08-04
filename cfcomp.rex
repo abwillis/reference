@@ -1,6 +1,6 @@
 /* Find matches in two files... assumes using first column in each, exact matches */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.5  14Jul2017 */
+/* Version 2.5.1  14Jul2017 */
 rc = SysLoadFuncs()
 home = directory()
 rc = SysFileDelete('compcheck.csv')
@@ -40,6 +40,8 @@ Do While Lines(fileinv2)
 	hhh = ''
 	TheRest = ''
     text = LineIn(fileinv2)
+/* The following is to find the device name without knowing the delimiter... If there is no TheRest then no delimeter was found */
+/* Possible downfall, if other character than delimter found prior to correct delimeter it may be seen as the delimter */
 	Parse Upper Var text devac','TheRest
     if (TheRest == "") then Parse Upper Var text devac';'TheRest
 	if (TheRest == "") then Parse Upper Var text devac':'TheRest
