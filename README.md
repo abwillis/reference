@@ -3,7 +3,7 @@ files
 git push -u origin master
 
 Scripts used in IAM Secondary Controls.
-.rex files require Rexx to be installed, can be used on Linux, Windows, or even OS/2... may be able to run even on mainframe.
+.rex files require Rexx to be installed, can be used on (unless otherwise noted) Linux, Windows, or even OS/2... may be able to run even on mainframe.
 .cmd files are essentially windows batch files, only run on Windows (well potentially on OS/2 but at least some certainly will not.
 
 
