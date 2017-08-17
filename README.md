@@ -35,4 +35,5 @@ pfdup.rex          -- Searches current directory for duplicate mef3 files and al
 convert.rex        -- Proof of concept mef3 file conversion (incomplete)
 dircode.cmd        -- create directories on windows using account and quarter as parameters
 GVM.cmd            -- Launch validatemefs, downloads file to make sure latest and gives list of probably files and paths needed as well as date 30 days ago
+privown.cmd        -- Creates an easy to use list from CSV of email and privs to input into URT for priv owners.  Input expected to be broken down by OS and in format OS,priv,owner,email.
 README.md          -- This file.
