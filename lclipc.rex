@@ -1,12 +1,12 @@
 /* Copy column to clipboard, one at a time - first column */
 /* Envisioned, designed and written by Andy Willis */
-/* Linux Version 1.1  1Sep2017 */
+/* Linux Version 1.2  1Sep2017 */
 rc = SysLoadFuncs()
 
 home = directory()
 Parse ARG fileinv delim
-if fileinv="" then pull fileinv
-if delim = "" then pull delim
+if fileinv="" then parse pull fileinv
+if delim = "" then parse pull delim
 if delim = '' then delim = ','
 
 Do While Lines(fileinv)
