@@ -1,6 +1,6 @@
 /* Copy column to clipboard, one at a time - first column */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.3.2  4/11/2017 */
+/* Version 1.4  1Sep2017 */
 rc = SysLoadFuncs()
 
 home = directory()
