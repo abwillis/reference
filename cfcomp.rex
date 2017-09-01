@@ -1,6 +1,6 @@
 /* Find matches in two files... assumes using first column in each, exact matches */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.5.1  14Jul2017 */
+/* Version 2.7  01Sep2017 */
 rc = SysLoadFuncs()
 home = directory()
 rc = SysFileDelete('compcheck.csv')
@@ -8,18 +8,45 @@ rc = SysFileDelete('nomatch.csv')
 rc = SysFileDelete('compfull.csv')
 rc = SysFileDelete('nomatchfull.csv')
 lognom1 = ""
+Say
+Say "Usage: Filename-1 Delimeter-1 Filename-2 Delimeter-2 nonmatches (optional, anything other than Y is no)"
+Say
+Parse ARG fileinv1 delim1 fileinv2 delim2 lognom1
 
-Parse ARG fileinv1 fileinv2 lognom1
-
-if fileinv1="" then do
+if (delim1 <> ',') & (delim1 <> ';') & (delim1 <> ':') & (delim1 <> '|') & (delim1 <> '')  then do
+  Say 'Bad first delimeter specified'
+  delim1 = ""
+  fileinv2 = ""
+  delim2 = ""
+  lognom1 = ""
+end
+if (delim2 <> ',') & (delim2 <> ';') & (delim2 <> ':') & (delim2 <> '|') & (delim2 <> '')  then do
+  Say 'Bad second delimeter specified'
+  delim2 = ""
+  lognom1 = ""
+end
+if fileinv1 = "" then do
   Say "Filename of first file?"
   parse pull fileinv1
+end
+/* Seems to me the following should be OR (|) instead of AND (&) but did not work out that way */
+do while ((delim1 <> ',') & (delim1 <> ';') & (delim1 <> ':') & (delim1 <> '|'))
+  Say "Delimiters may be , ; : |"
+  Say "Which delimeter do you want for first file?"
+  parse pull Delim1
 end
 if fileinv2="" then do
   Say "Filename of second file?"
   parse pull fileinv2
-  if lognom1="" then do
-    Say "Do you want to log non-matches? Y/N"
+end
+if Delim2 = "" then do
+  do while ((delim2 <> ',') & (delim2 <> ';') & (delim2 <> ':') & (delim2 <> '|'))
+    Say "Delimiters may be , ; : |"
+    Say "Which delimeter do you want for second file?"
+    parse pull Delim2
+  end
+  if lognom1 = "" then do
+    Say "Do you want to log non-matches? Anything other than Y is no."
 	pull lognom1
   end	
 end
@@ -40,12 +67,22 @@ Do While Lines(fileinv2)
 	hhh = ''
 	TheRest = ''
     text = LineIn(fileinv2)
+
+SELECT
+   WHEN Delim2 = ',' THEN Parse Upper Var text devac','.
+   WHEN Delim2 = ';' THEN Parse Upper Var text devac';'.
+   WHEN Delim2 = ':' THEN Parse Upper Var text devac':'.
+   WHEN Delim2 = '|' THEN Parse Upper Var text devac'|'.
+END
+
 /* The following is to find the device name without knowing the delimiter... If there is no TheRest then no delimeter was found */
 /* Possible downfall, if other character than delimter found prior to correct delimeter it may be seen as the delimter */
+/* Downfall occurring to often, trying specify
 	Parse Upper Var text devac','TheRest
     if (TheRest == "") then Parse Upper Var text devac';'TheRest
 	if (TheRest == "") then Parse Upper Var text devac':'TheRest
     if (TheRest == "") then Parse Upper Var text devac'|'TheRest
+*/
 	Parse Var devac ttt'"'hhh'"'TheRest
 	if (ttt <> '') then do
 	  Something2.c1 = ttt 
@@ -66,10 +103,20 @@ nummatches = 0
 Do While Lines(fileinv1)
 howmany = howmany + 1
   inven = LineIn(fileinv1)
-  Parse Upper Var inven Some1','TheRest1
+/*
+ Parse Upper Var inven Some1','TheRest1
   if (TheRest1 == "") then Parse Upper Var inven Some1';'TheRest1
   if (TheRest1 == "") then Parse Upper Var inven Some1':'TheRest1
   if (TheRest1 == "") then Parse Upper Var inven Some1'|'TheRest1
+*/
+
+SELECT
+   WHEN Delim1 = ',' THEN Parse Upper Var inven Some1','.
+   WHEN Delim1 = ';' THEN Parse Upper Var inven Some1';'.
+   WHEN Delim1 = ':' THEN Parse Upper Var inven Some1':'.
+   WHEN Delim1 = '|' THEN Parse Upper Var inven Some1'|'.
+END
+
   Parse Var Some1 ttt1'"'hhh1'"'TheRest
 	if (ttt <> '') then do
 	  Something1 = ttt1 
