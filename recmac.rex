@@ -1,6 +1,6 @@
 /* Create cvs files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0.1 5Sep2017 */
+/* Version 1.1 5Sep2017 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -116,12 +116,12 @@ do n = 1 to obj.0
 variable is >1 then mark it as possible mislabel check /C/ /F/ /I/ /E/ etc. */
           Select 
               when tid = 'S' then do
-                ISN = SN
+                parse var SN '*'ISN
                 Type = '2'
               end
               when tid = 'F' then do
-                ISN = SN
-              Type = '2'
+                parse var SN '*'ISN
+                Type = '2'
               end    
               when tid = 'C' then do
                 ISN = ''
