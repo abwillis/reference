@@ -1,6 +1,6 @@
 /* Create cvs files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0 5Sep2017 */
+/* Version 1.0.1 5Sep2017 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -137,7 +137,7 @@ variable is >1 then mark it as possible mislabel check /C/ /F/ /I/ /E/ etc. */
               end
               otherwise ISN = 'labelling unknown'
           end
-          rc = lineout('UAT_Deviation_Add_Users.csv',inst','did.n','hst.n','obj.n','Type','ISN',No,'Justif',No,'plt.n','plv.n','n',')
+          rc = lineout('UAT_Deviation_Add_Users.csv',inst','did.n','hst.n','obj.n','Type','ISN',No,'Justif',No,'plt.n','plv.n',')
         end
         if src.n = "Not in Device" then do 
           rc = lineout('Device_Deviation_Users.csv',inst','did.n','hst.n','obj.n','plt.n',')
