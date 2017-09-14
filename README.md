@@ -27,6 +27,7 @@ devmgr.rex         -- Clean device manager file for storage (remove first line a
 emef.rex           -- Find extra mefs, compares mefs in current directory to inventory file
 open.cmd           -- open file manager on windows... will open current by default or the path given as parameter
 clipcolumn.rex     -- fills clipboard from column in text file - Windows only
+lclipc.rex         -- fills clipboard from column in text file - Linux only
 devmig.rex         -- Creates bulk device migration file
 fixmef.rex         -- Fixes filename and environment (first column of mef3 file)
 devteam.rex        -- Creates dev team bulk migration file
