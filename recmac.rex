@@ -1,6 +1,6 @@
-/* Create cvs files for use with imacros to for reconciliation */
+/* Create csv files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.1 5Sep2017 */
+/* Version 1.1.01 19Sep2017 */
 
 rc = SysLoadFuncs()
 home = directory()
