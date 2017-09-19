@@ -9,8 +9,6 @@ Scripts used in IAM Secondary Controls.
 
 altria-fix.rex     -- Fix specific issue with some Altria mef files.
 
-daysall.cmd        -- Date calculations - regular days and business (weekdays)
-
 diryear.cmd        -- create directory structure, takes account and year as parameters
 
 hostlab.rex        -- Finds hosts for IDs in mapfile
@@ -19,8 +17,6 @@ UIDLAB.rex         -- different layout of information in hostlab.rex
 
 rnfiles.rex        -- Ren bulk files that have something in common
 
-busdayback.cmd     -- Business(weekday) day date calculations
-
 daysback.rex       -- regular day date calculations
 
 dvmgos.rex         -- clean device manager file for OS (removes first line and storage devices)
@@ -28,10 +24,6 @@ dvmgos.rex         -- clean device manager file for OS (removes first line and s
 listmefs.rex       -- createslist all mefs in current directory
 
 rpmpack.rex        -- Creates list of everything installed via yum/rpm
-
-busday.cmd         -- calclulate business (weekday) days
-
-days.cmd           -- calcullate regular days
 
 ecminv.rex         -- Clean up ECM report for easier viewing of important to secondary controls information
 
