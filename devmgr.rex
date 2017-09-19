@@ -1,5 +1,6 @@
+#! /usr/bin/rexx
 /* REXX MGR-Devices cleanup for Storage */
-/* Version 1.5 06Jun2017 */
+/* Version 1.5.01 19Sep2017 */
 /* Envisioned, designed and written by Andy Willis */
 
 rc = SysLoadFuncs()

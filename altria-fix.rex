@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Fix specific set of Mef3 files in 4th column to remove extraneous hostname\ */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0  17Jul2017 */
+/* Version 1.0.01  19Sep2017 */
 
 rc = SysLoadFuncs()
 home = directory()

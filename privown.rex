@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Concatenate with commas privs for each email address */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0  15Aug2017 */
+/* Version 1.0.01  19Sep2017 */
 /* System assumes Platform, priv, user name, user email */
 /* Ouput will be email priv1,priv2,etc */
 

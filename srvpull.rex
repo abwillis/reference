@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Specific use case, need to pull lines from recon file for certain servers. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.3  19Jun2017 */
+/* Version 2.3.01  19Sep2017 */
 rc = SysLoadFuncs()
 home = directory()
 rc = SysFileDelete('reconstuff.csv')

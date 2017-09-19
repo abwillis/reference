@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Fix mef file customer environment. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.1  26May2017 */
+/* Version 2.1.01  19Sep2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG oldenv newenv

@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Find duplicate mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 3.0  24Jul2017 */
+/* Version 3.0.01  19Sep2017 */
 rc = SysLoadFuncs()
 home = directory()
 

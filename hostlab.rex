@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Find servers to match ID/labels in mapfile */
 /* Envisioned, designed and written by Andy Willis */
-/* Version test 1.9  4/19/2017 */
+/* Version test 1.9.01  9/19/2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv

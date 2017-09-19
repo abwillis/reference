@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Create a list of devices found in mef3 files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0  4/10/2017 */
+/* Version 1.0.01  19Sep2017 */
 rc = SysLoadFuncs()
 home = directory()
 

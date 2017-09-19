@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Find matches in two files... assumes using first column in each, exact matches */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.8  01Sep2017 */
+/* Version 2.8.01  19Sep2017 */
 rc = SysLoadFuncs()
 home = directory()
 rc = SysFileDelete('compcheck.csv')

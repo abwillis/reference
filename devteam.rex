@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* USA delivery team migration */
 /* Envisioned/designed/developed by Andy Willis */
-/* Version 1.1 19Jul2017 */
+/* Version 1.1.01 19Sep2017 */
 
 Org = 'SARM'
 Cntry = 'USA'

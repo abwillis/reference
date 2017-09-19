@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Copy column to clipboard, one at a time - first column */
 /* Envisioned, designed and written by Andy Willis */
-/* Linux Version 1.2  1Sep2017 */
+/* Linux Version 1.2.01  19Sep2017 */
 rc = SysLoadFuncs()
 
 home = directory()

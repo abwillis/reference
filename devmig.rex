@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* USA devices migration */
 /* Envisioned/designed/developed by Andy Willis */
-/* Version 1.6 25Jul2017 */
+/* Version 1.6.01 19Sep2017 */
 
 home = Directory()
 Num = 0

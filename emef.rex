@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Find extra mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.3  17Jul2017 */
+/* Version 2.3.01  19Sep2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv

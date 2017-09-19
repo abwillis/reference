@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* REXX Calculate days and business days from today */
 /* Envisioned/designed/developed by Andy Willis */
-/* Version 1.2 03May2017 */
+/* Version 1.2.01 19Sep2017 */
 Parse Arg DayCnt
 if DayCnt = '' then do
   say "How many days back? Negative is back to the future."

@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Find which mef3 files are missing */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.2  4Aug2017 */
+/* Version 2.2.01  19Sep2017 */
 
 rc = SysLoadFuncs()
 home = directory()

@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Proof of concept REXX MGR/MEF3 conversion */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0  15May2017 */
+/* Version 1.0.01  19Sep2017 */
 rc = SysLoadFuncs()
 home = directory()
 

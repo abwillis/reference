@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Rename bulk files Adding to the front. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.8  02May2017 */
+/* Version 1.8.01  19Sep2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG common addition

@@ -1,5 +1,6 @@
+#! /usr/bin/rexx
 /* REXX ECM Inventory cleanup */
-/* Version 1.1 19Apr2017 */
+/* Version 1.1.01 19Sep2017 */
 /* Envisioned, designed and written by Andy Willis */
 
 rc = SysLoadFuncs()

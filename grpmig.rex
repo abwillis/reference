@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* USA group migration */
 /* Envisioned/designed/developed by Andy Willis */
-/* Version 1.1 25Jul2017 */
+/* Version 1.1.01 19Sep2017 */
 
 Num = 0
 Say 'Groups migration form'
