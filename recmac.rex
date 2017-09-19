@@ -1,6 +1,7 @@
+#! /usr/bin/rexx
 /* Create csv files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.1.01 19Sep2017 */
+/* Version 1.2 19Sep2017 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -51,7 +52,7 @@ j = 0
 do while Lines(reconfile)
   j = j + 1
   rtext = linein(reconfile)
-  parse var rtext .'|"'source.j'"|'.'|'.'|"'device.j'"|'.'|'.'|"'Type.j'"|"'object.j'"|"'privlab.j'"|'request.j
+  parse var rtext .'|"'source.j'"|'.'|'.'|"'device.j'"|'.'|'pltfrm.j'|"'Type.j'"|"'object.j'"|"'privlab.j'"|'request.j
   if source.j = '' then parse var rtext .'|'source.j'|'.'|'.'|'device.j'|'.'|'.'|'Type.j'|'object.j'|'privlab.j'|'request.j
 end  
 device.0 = j
