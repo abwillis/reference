@@ -1,6 +1,6 @@
 #! /usr/bin/rexx
 /* REXX MGR-Devices cleanup for OS */
-/* Version 1.3.01 19Sep2017 */
+/* Version 1.3.1 19Sep2017 */
 /* Envisioned, designed and written by Andy Willis */
 
 rc = SysLoadFuncs()
@@ -48,8 +48,8 @@ return
 help:
 say "This was written to clean up MGR CSV to be converted"
 say " Usage:"
-say "ecminv filename account"
-say "ecminv help    This screen"
+say "dvmgos filename account"
+say "dvmgos help    This screen"
 
 
 finish:
