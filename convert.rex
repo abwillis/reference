@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Proof of concept REXX MGR/MEF3 conversion */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0.01  19Sep2017 */
+/* Version 1.1  19Sep2017 */
 rc = SysLoadFuncs()
 home = directory()
 
@@ -47,7 +47,7 @@ env.0 = 0
 c1 = 1
 Do While Lines(mgrfile)
   infor = LineIn(mgrgile)
-  parse var infor hostname.c1';'.';'.';'env.c1';'.
+  parse var infor hostname.c1':'.':'.':'env.c1':'platform.c1':'.
   env.0 = c1
   hostname.0 = c1
   c1 = c1 + 1
@@ -62,7 +62,7 @@ do m = 1 to file.0
   Parse Var text .'|'.'|'device1'|'.'|'UID'|'.'|'Label'|'stat'|'priv1'|'group
   Parse upper var device1 device'.'Something
   call checkit
-  call addit
+/*  call addit  */
   rc = lineout(invfile)
 end
 
