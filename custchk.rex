@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Sort customer, IBM, and unknown IDs in converted file into separate files based on labels. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0  20Sep2017 */
+/* Version 1.0.1  21Sep2017 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -13,7 +13,7 @@ if (account == '') then call getaccnt
 output = 'output'
 
 /* Easiest way to be cross compatibile and avoid slash vs. backslash */
-/* Getting reconfile path and will move to output directory, just because it is cleaner for many recon files */
+/* Getting reconfile fullpath and will move to output directory, just because it is cleaner for many recon files */
 rc = SysFileTree(reconfile,'recons','FO')
 if (recons.0 == 0) then call finish
 rc = SysIsFileDirectory(output)
@@ -62,6 +62,7 @@ putunk:
   rc = lineout(account'-unk-recon.csv',A1':'B1':'C1':'D1':'E1':'F1':'G1':'H1':'I1':'J1':'K1':')
 return
 
+/* Below are the current and obsolete but possibly used label types */
 usrparse:
   parse var G1 .'/'which'/'
     SELECT
