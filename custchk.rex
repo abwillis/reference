@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Sort customer, IBM, and unknown IDs in converted file into separate files based on labels. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0.1  21Sep2017 */
+/* Version 1.1  21Sep2017 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -29,12 +29,12 @@ rc = stream(recon,"c","open")
 do while lines(recon)
   words = linein(recon)
   parse var words A1':'B1':'C1':'D1':'E1':'F1':'G1':'H1':'I1':'J1':'K1':'
-  if (A1 = "GRP") then do
+  if (A1 == "GRP") then do
     call putcust
     call putibm
     call putunk
   end  
-  if (A1 = "USR") then call usrparse
+  if (A1 == "USR") then call usrparse
 end  
 rc = stream(recon,"c","close")
   
