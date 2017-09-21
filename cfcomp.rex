@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Find matches in two files... assumes using first column in each, exact matches */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.8.01  19Sep2017 */
+/* Version 2.9  19Sep2017 */
 rc = SysLoadFuncs()
 home = directory()
 rc = SysFileDelete('compcheck.csv')
@@ -14,6 +14,7 @@ Say "Usage: Filename-1 Delimeter-1 Filename-2 Delimeter-2 nonmatches (optional, 
 Say
 Parse ARG fileinv1 delim1 fileinv2 delim2 lognom1
 
+/* Delimeter only BAD if wrong one, if blank then considered needed below but not BAD_ */
 if (delim1 <> ',') & (delim1 <> ';') & (delim1 <> ':') & (delim1 <> '|') & (delim1 <> '')  then do
   Say 'Bad first delimeter specified'
   delim1 = ""
@@ -21,6 +22,7 @@ if (delim1 <> ',') & (delim1 <> ';') & (delim1 <> ':') & (delim1 <> '|') & (deli
   delim2 = ""
   lognom1 = ""
 end
+/* Delimeter only BAD if wrong one, if blank then considered needed below but not BAD_ */
 if (delim2 <> ',') & (delim2 <> ';') & (delim2 <> ':') & (delim2 <> '|') & (delim2 <> '')  then do
   Say 'Bad second delimeter specified'
   delim2 = ""
@@ -40,7 +42,7 @@ if fileinv2="" then do
   Say "Filename of second file?"
   parse pull fileinv2
 end
-if Delim2 = "" then do
+if Delim2 = "" then do /* Above sets delim2 to "" if non valid delim - usually from bad parameter order */
   do while ((delim2 <> ',') & (delim2 <> ';') & (delim2 <> ':') & (delim2 <> '|'))
     Say "Delimiters may be , ; : |"
     Say "Which delimeter do you want for second file?"
@@ -109,7 +111,7 @@ howmany = howmany + 1
    Parse Upper Var inven Some1 (Delim1) .
 
   Parse Var Some1 ttt1'"'hhh1'"'TheRest
-	if (ttt <> '') then do
+	if (ttt1 <> '') then do
 	  Something1 = ttt1 
 	end
 	else do
