@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Create csv files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.2 19Sep2017 */
+/* Version 1.3 22Sep2017 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -90,7 +90,7 @@ rc = lineout('UAT_Deviation_Groups.csv','Instance,device_id,Hostname,Group Name,
 do n = 1 to obj.0
   ISN = ''
   Type = ''
-  If request.n = '' then do
+  If req.n = '' then do
     SELECT
       WHEN typ.n = "Privilege" then do
         if src.n = "Not in UAT" then  do 
