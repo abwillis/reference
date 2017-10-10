@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Find duplicate mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 3.0.01  19Sep2017 */
+/* Version 3.1  03Oct2017 */
 rc = SysLoadFuncs()
 home = directory()
 
@@ -40,12 +40,13 @@ names:
 do x = 1 to howm.0
   new = 0
   listfile = howm.x
-  do while lines('dupcheck.csv')
+  do while lines('dupcheck.csv') /* This confused me when looking back at it... this is checking to make sure the filename was not already put into dupcheck by the below section */
     checkit = LineIn('dupcheck.csv')
     Parse var checkit lineup','.
     if (lineup == listfile) then new = 1 /* Any match will set new=1 so then below it will not output that filename, prevents the same filename being output twice for each match */
   end
   rc = LineOut('dupcheck.csv')
+  
   if (new == 0) then do
     say listfile
     rc = SysFileTree(listfile,'fdate','F')

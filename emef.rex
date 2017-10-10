@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Find extra mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.3.01  19Sep2017 */
+/* Version 2.4  03Oct2017 */
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG fileinv
@@ -75,8 +75,7 @@ names:
 say device
 rc = lineout('extramef.csv',invfile) 
 rc = lineout('extramef-h.csv',device)
-rc = lineout('extramef-b.csv',invfile)
-rc = lineout('extramef-b.csv',device)
+rc = lineout('extramef-b.csv',invfile','device)
 return
 
 finish:
