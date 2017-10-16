@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Find matches in two files... assumes using first column in each, exact matches */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.9  19Sep2017 */
+/* Version 2.9.1  16Oct2017 */
 rc = SysLoadFuncs()
 home = directory()
 rc = SysFileDelete('compcheck.csv')
@@ -71,8 +71,6 @@ Do While Lines(fileinv2)
 	TheRest = ''
     text = LineIn(fileinv2)
 
-    Parse Upper Var text devac (delim2) .
-
 /* The following is to find the device name without knowing the delimiter... If there is no TheRest then no delimeter was found */
 /* Possible downfall, if other character than delimter found prior to correct delimeter it may be seen as the delimter */
 /* Downfall occurring to often, trying specify
@@ -81,13 +79,20 @@ Do While Lines(fileinv2)
 	if (TheRest == "") then Parse Upper Var text devac':'TheRest
     if (TheRest == "") then Parse Upper Var text devac'|'TheRest
 */
-	Parse Var devac ttt'"'hhh'"'TheRest
-	if (ttt <> '') then do
-	  Something2.c1 = ttt 
-	end
-	else do
-	  Something2.c1 = hhh
-	end
+
+/* The following line grabs the first column */
+    Parse Upper Var text devac (delim2) .
+
+/* The following parses the column just grabbed and if there are no quotes then ttt will hold the data but if there are quotes then hhh will hold the data */  
+/* Additionally, if there were for some reason a quote after some other text, then the text prior to the quote will be held and used in ttt */
+    Parse Var devac ttt'"'hhh'"'TheRest
+    if (ttt <> '') then do
+      Something2.c1 = ttt 
+    end
+    else do
+      Something2.c1 = hhh
+    end
+    
     Something2.0 = c1
 	c1 = c1 + 1
 
@@ -108,16 +113,20 @@ howmany = howmany + 1
   if (TheRest1 == "") then Parse Upper Var inven Some1'|'TheRest1
 */
 
-   Parse Upper Var inven Some1 (Delim1) .
+/* The following line grabs the first column */
+  Parse Upper Var inven Some1 (Delim1) .
 
+/* The following parses the column just grabbed and if there are no quotes then ttt1 will hold the data but if there are quotes then hhh1 will hold the data */  
+/* Additionally, if there were for some reason a quote after some other text, then the text prior to the quote will be held and used in ttt1 */
   Parse Var Some1 ttt1'"'hhh1'"'TheRest
-	if (ttt1 <> '') then do
-	  Something1 = ttt1 
-	end
-	else do
-	  Something1 = hhh1
-	end
-    
+  if (ttt1 <> '') then do
+    Something1 = ttt1 
+  end
+  else do
+    Something1 = hhh1
+  end
+
+/* Set match equal to zero so that if no matches found it falls through below */  
   match = 0
 
   Do m = 1 to Something2.0
