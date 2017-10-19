@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Find duplicate mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 3.1  03Oct2017 */
+/* Version 3.2  19Oct2017 */
 rc = SysLoadFuncs()
 home = directory()
 
@@ -11,14 +11,15 @@ rc = SysFileDelete('wrongfile.csv')
 rc = SysFileDelete('badfile.csv')
 
 rc = SysFileTree('*.mef3','file','FO') /* Load list of mef3 files into file.x, total number of mef3 files into file.0 */
-if (file.0 == 0) then call finish
+if (file.0 == 0) then call finish /* If file.0=0 then no point in going further, bail */
 
 do k = 1 to file.0
   invfile = file.k
+  rc = stream(invfile, 'c', 'open')  
   text = LineIn(invfile,1,1) /* Just pull in the first line of the file, from it we can get the hostname we are looking for here */
-  Parse Var text Something'|'Something'|'device'|'Something /* Parses out hostname (device) */
-  rc = LineOut(invfile) /*stream close will seg fault after many uses on linux */
+  rc = LineOut(invfile) /* stream close will seg fault after many uses on linux */
 /* rc = stream(invfile, 'c', 'close') */
+  Parse Var text .'|'.'|'device'|'. /* Parses out hostname (device) */
   if (device == '') then call badstuff /* mef file is bad if the hostname is not in it */
 
   else do
