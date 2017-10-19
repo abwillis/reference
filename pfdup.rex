@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Find duplicate mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 3.3.1  19Oct2017 */
+/* Version 3.3.2  19Oct2017 */
 rc = SysLoadFuncs()
 home = directory()
 
@@ -55,8 +55,8 @@ do x = 1 to howm.0
   
   if (new == 0) then do
     say listfile
-    rc = SysFileTree(listfile,'fdate','F')
-    rc = lineout('dupcheck.csv',listfile','Word(fdate.1,3))
+    rc = SysFileTree(listfile,'flist','F')
+    rc = lineout('dupcheck.csv',listfile','Word(flist.1,3)) /* Filesize is in the 3rd descriptor */
   end
 end
 
