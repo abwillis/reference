@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Find duplicate mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 3.2  19Oct2017 */
+/* Version 3.3  19Oct2017 */
 rc = SysLoadFuncs()
 home = directory()
 
@@ -9,6 +9,7 @@ home = directory()
 rc = SysFileDelete('dupcheck.csv')
 rc = SysFileDelete('wrongfile.csv')
 rc = SysFileDelete('badfile.csv')
+rc = SysFileDelete('listdevs.csv')
 
 rc = SysFileTree('*.mef3','file','FO') /* Load list of mef3 files into file.x, total number of mef3 files into file.0 */
 if (file.0 == 0) then call finish /* If file.0=0 then no point in going further, bail */
@@ -31,7 +32,11 @@ do k = 1 to file.0
       rc = SysFileTree(checkfile,'howm','FOI')
     end
     if (howm.0 == 0) then call wrongstuff /* Filename still not found from device, even after removing FQDN above, call logging */
-    else if (howm.0 > 1) then call names
+    else if (howm.0 > 1) then do
+      call names
+      rc = LineOut('listdevs.csv',device','invfile','dup)
+    end  
+    else rc = LineOut('listdevs.csv',device','invfile)  
   end
 end
 call finish
@@ -62,12 +67,14 @@ badstuff: /* Called to log mef3 files that are missing the hostname */
 Say 'Something bad, empty hostname field in'
 say invfile 
 rc = lineout('badfile.csv', invfile)
+rc = LineOut('listdevs.csv',device','invfile',')
 return
 
 wrongstuff:  /* A file matching the hostname was not found, this sometimes is caused by name being truncated, log it but not necessarily a problem */
 Say 'Something wrong, no file found with hostname'
 say invfile
 rc = lineout('wrongfile.csv', invfile','device)
+  rc = LineOut('listdevs.csv',device','invfile',')
 return
 
 finish:
