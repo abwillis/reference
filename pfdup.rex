@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Find duplicate mef files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 3.3  19Oct2017 */
+/* Version 3.3.1  19Oct2017 */
 rc = SysLoadFuncs()
 home = directory()
 
@@ -36,7 +36,7 @@ do k = 1 to file.0
       call names
       rc = LineOut('listdevs.csv',device','invfile','dup)
     end  
-    else rc = LineOut('listdevs.csv',device','invfile)  
+    else rc = LineOut('listdevs.csv',device','invfile',')  
   end
 end
 call finish
