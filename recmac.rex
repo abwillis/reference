@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Create csv files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.3 22Sep2017 */
+/* Version 1.4 31Oct2017 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -12,14 +12,14 @@ rc = SysFileDelete('UAT_Deviation_Add_Privs.csv')
 rc = SysFileDelete('UAT_Deviation_Add_Users.csv')
 rc = SysFileDelete('UAT_Deviation_Groups.csv')
 
-Parse ARG devfile reconfile inst1 justif
+Parse ARG devfile reconfile inst1 justif dpeint
 parse lower var inst1 inst
 
-if devfile = '' then do
+if (devfile == '') then do
   Say "DVC08 file?"
   Parse Pull devfile
 end
-if reconfile = '' then do
+if (reconfile == '') then do
   Say "Recon03 file?"
   Parse Pull reconfile
 end
@@ -27,10 +27,14 @@ do while ((inst<>'br' & inst<>'us'))
   say "US or BR"
   parse lower pull inst
 end
-if justif = '' then do
+if (justif == '') then do
   say 'Justification? (.e.g. 1Q17 recon)'
   parse pull justif
 end
+if (dpeint == '') then do
+  say 'DPE INT Code? For customer IDs'
+  pul DPEINT
+end  
 
 rc = stream(devfile,"c","open")
 k = 0
@@ -125,7 +129,7 @@ variable is >1 then mark it as possible mislabel check /C/ /F/ /I/ /E/ etc. */
                 Type = '2'
               end    
               when tid = 'C' then do
-                ISN = ''
+                ISN = DPEINT
                 TYPE = '3'
               end
               when tid = 'E' then do
@@ -136,7 +140,7 @@ variable is >1 then mark it as possible mislabel check /C/ /F/ /I/ /E/ etc. */
                 ISN = SN''cntry
                 Type = '1'
               end
-              otherwise ISN = 'labelling unknown'
+              otherwise ISN = 'labelling unknown 'SN''cntry
           end
           rc = lineout('UAT_Deviation_Add_Users.csv',inst','did.n','hst.n','obj.n','Type','ISN',No,'Justif',No,'plt.n','plv.n',')
         end
