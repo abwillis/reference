@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Create csv files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.4 31Oct2017 */
+/* Version 1.4.1 3Nov2017 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -33,7 +33,7 @@ if (justif == '') then do
 end
 if (dpeint == '') then do
   say 'DPE INT Code? For customer IDs'
-  pul DPEINT
+  pull DPEINT
 end  
 
 rc = stream(devfile,"c","open")
