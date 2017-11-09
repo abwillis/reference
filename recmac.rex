@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Create csv files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.4.1 3Nov2017 */
+/* Version 1.5 9Nov2017 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -139,6 +139,10 @@ variable is >1 then mark it as possible mislabel check /C/ /F/ /I/ /E/ etc. */
               when tid = 'I' then do
                 ISN = SN''cntry
                 Type = '1'
+              end
+              when tid = 'N' then do
+                ISN = 'labelling unknown 'SN''cntry
+                Type = '4'
               end
               otherwise ISN = 'labelling unknown 'SN''cntry
           end
