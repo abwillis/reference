@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Create csv files for use with imacros to for Nested Files reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0 19Sep2017 */
+/* Version 1.1 6Dec2017 */
 rc = SysLoadFuncs()
 home = directory()
 
@@ -54,20 +54,21 @@ do while Lines(dashboard)
   end  
 end  
 device.0 = l
-say "Number of dashboard entries: "l
 rc = stream(dashboard,"c","close")
 
+number = 1
 do i = 1 to DeviceID.0
   do m = 1 to device.0
     if (hostname.i = device.m) then do
       if (platform.i = pltfrm.m) then do
         rc = lineout('Device_Deviation_Nested_Groups.csv',inst','DeviceID.i','device.m)
+        number = number + 1
         m = Device.0
       end
     end
   end
 end
 
-
+say "Number of entries: "number
 
 
