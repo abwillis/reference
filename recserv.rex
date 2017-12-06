@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* remove servers from recon file */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0.0 04Dec2017 */
+/* Version 1.2 04Dec2017 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -36,16 +36,28 @@ do while lines(reconfile)
     check = POS(list.i,lined)
     if (check <> 0) then do
       equalled = 1
-      parse var lined .':'.":"third":".
+      parse var lined .':'.":"third":"TheRest
       if (third <> list.i) then do
-        rc = lineout('nested.csv',list.i":"lined)
         equalled = 0
+        newcheck = POS(list.i,TheRest) 
+        if (newcheck <> 0) then do
+          strl = length(list.i)
+          parse var lined >(newcheck + strl) stuff';'.
+          parse var stuff serv','priv
+          if (list.i = serv) then do
+            rc = lineout('nested.csv',list.i":"lined)
+            parse var lined began (stuff) ';'complete
+            lined = began''complete
+          end
+        end
       end
-      else i = list.0
+      else do 
+        rc = lineout('removed.csv',lined)
+        i = list.0
+      end
     end
   end
   if equalled = 0 then rc = lineout('recon-cleaned.csv',lined)
-
 end
 
 rc = stream(servlist,"c","close")
