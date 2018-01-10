@@ -44,8 +44,8 @@ Do While Lines(devfile)
   cnt = countstr(_SID,dtext)
   if (cnt = 0) then do
     k = k + 1
-    parse var dtext .';'.';'.';'DeviceID.k';"'hostname.k'";'.';'.';'.';"'platform.k'";'.
-    if hostname.k = '' then parse var dtext .';'.';'.';'DeviceID.k';'hostname.k';'.';'.';'.';'platform.k';'.
+    parse var dtext .'|'.'|'.'|'DeviceID.k'|"'hostname.k'"|'.'|'.'|'.'|"'platform.k'"|'.
+    if hostname.k = '' then parse var dtext .'|'.'|'.'|'DeviceID.k'|'hostname.k'|'.'|'.'|'.'|'platform.k'|'.
   end
 end
 DeviceID.0 = k
@@ -56,8 +56,8 @@ j = 0
 do while Lines(reconfile)
   j = j + 1
   rtext = linein(reconfile)
-  parse var rtext .';"'source.j'";'.';'.';"'device.j'";'.';'pltfrm.j';"'Type.j'";"'object.j'";"'privlab.j'";'request.j
-  if source.j = '' then parse var rtext .';'source.j';'.';'.';'device.j';'.';'.';'Type.j';'object.j';'privlab.j';'request.j
+  parse var rtext .'|"'source.j'"|'.'|'.'|"'device.j'"|'.'|'pltfrm.j'|"'Type.j'"|"'object.j'"|"'privlab.j'"|'request.j
+  if source.j = '' then parse var rtext .'|'source.j'|'.'|'.'|'device.j'|'.'|'.'|'Type.j'|'object.j'|'privlab.j'|'request.j
 end  
 device.0 = j
 rc = stream(reconfile,"c","close")
