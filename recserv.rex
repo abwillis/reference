@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* remove servers from recon file */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.2 04Dec2017 */
+/* Version 1.2 06Dec2017 */
 
 rc = SysLoadFuncs()
 home = directory()
