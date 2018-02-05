@@ -1,13 +1,13 @@
 #! /usr/bin/rexx
 /* REXX ECM Inventory cleanup */
-/* Version 1.1.01 19Sep2017 */
+/* Version 1.1.02 05Feb2018 */
 /* Envisioned, designed and written by Andy Willis */
 
 rc = SysLoadFuncs()
 home = directory()
 
 today = Date('Base')
-Ndate  = Date('Normal',today,'Base')
+Ndate = Date('Normal',today,'Base')
 parse var ndate day' 'mon' 'year
 if day<10 then day='0'day
 if mon<10 then mon='0'mon
@@ -21,7 +21,7 @@ if (csvfile == '') then call filelist
 if (account == '') then call getaccnt
 
 newfilename = account'_'tdate'_'Inventory
-newfile=newfilename'.csv'
+newfile = newfilename'.csv'
 
 check = stream(newfile,'c','query exists')
 
@@ -43,9 +43,9 @@ Do While Lines(csvfile)
   count = count + 1
   text = LineIn(csvfile)
   Parse Var text drop';'LN';'LNA';'SysID';'Sysstate';'OSFam';'Cat';'Plat';'IP';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'QEVReq';'drop';'QEVdate';'QEVnext';'QEVstat';'CBNReq';'drop';'drop';'CBNDate';'CBNNext';'CBNStat';'PrivReq';'drop';'drop';'PrivDate';'PrivNext';'PrivStat';'drop
-  if LN='' then Parse Var text drop','LN','LNA','SysID','Sysstate','OSFam','Cat','Plat','IP','drop','drop','drop','drop','drop','drop','drop','drop','drop','drop','drop','drop','QEVReq','drop','QEVdate','QEVnext','QEVstat','CBNReq','drop','drop','CBNDate','CBNNext','CBNStat','PrivReq','drop','drop','PrivDate','PrivNext','PrivStat','drop
+  if LN = '' then Parse Var text drop','LN','LNA','SysID','Sysstate','OSFam','Cat','Plat','IP','drop','drop','drop','drop','drop','drop','drop','drop','drop','drop','drop','drop','QEVReq','drop','QEVdate','QEVnext','QEVstat','CBNReq','drop','drop','CBNDate','CBNNext','CBNStat','PrivReq','drop','drop','PrivDate','PrivNext','PrivStat','drop
   if (count >3 ) then do
-    newline=LN','LNA','SysID','SysState','OSFam','Cat','Plat','IP','QEVReq','CBNReq','PrivReq','QEVStat','CBNStat','PrivStat','QEVDate','CBNDate','PrivDate','QEVNext','CBNNext','PrivNext','
+    newline = LN','LNA','SysID','SysState','OSFam','Cat','Plat','IP','QEVReq','CBNReq','PrivReq','QEVStat','CBNStat','PrivStat','QEVDate','CBNDate','PrivDate','QEVNext','CBNNext','PrivNext','
     rc = lineout(newfile,newline)
   end
 end
@@ -62,14 +62,14 @@ end
 
 rc = SysFileTree('*IDMCOMP*.csv','file','FOI')
 do k = 1 to file.0
-test = file.k
-say test
+  test = file.k
+  say test
 end
 
 rc = SysFileTree('*Cust*.csv','file','FOI')
 do k = 1 to file.0
-test = file.k
-say test
+  test = file.k
+  say test
 end
 
 /* Parse Pull instead of just pull to prevent uppercasing */
