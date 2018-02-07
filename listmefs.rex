@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Create a list of devices found in mef3 files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0.01  19Sep2017 */
+/* Version 1.1  07Feb2018 */
 rc = SysLoadFuncs()
 home = directory()
 
@@ -16,12 +16,12 @@ rc = stream(invfile,"c","open")
 text = LineIn(invfile,1,1)
 Parse Var text Something'|'Something'|'device1'|'Something
 Parse var device1 device'.'Something
-rc = lineout(invfile) 
-rc = lineout('listmefs.csv',device1)
-rc = lineout('listmefs-nh.csv',device)
+rc = lineout(invfile)
+/* rc = stream(invfile,"c","close") on Linux can cause segfault when called enough times */
+rc = lineout('listmefs.csv',device1','invfile)
+rc = lineout('listmefs-nh.csv',device,','invfile) /* Will normally be the same as listmefs but occassionally listmefs could have FQDN for the servers */
 end
 
-/* rc = stream(fileinv, "c", "close") :::: This will cause segmentation fault on Linux if run many times */
 finish:
 
 
