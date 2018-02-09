@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* USA devices migration */
 /* Envisioned/designed/developed by Andy Willis */
-/* Version 1.6.01 19Sep2017 */
+/* Version 1.7 9Feb2018 */
 
 home = Directory()
 Num = 0
@@ -17,7 +17,7 @@ Parse pull Account
 
 rc = SysFileTree(Account'-device-migration.csv','exist','FO')
 if (exist.0 = 0) then do 
-  rc = Lineout(Account'-device-migration.csv','Hostname:IP:status:environment:delivery team:platform:automated:deveice role:master device:description:Last IBM QEV:Last IBM CBN:Last IBM Privilege Revalidation:Last Customer QEV:Last Customer CBN:Last Customer Privilege Revalidation:connection:ECM Mapping Name')
+  rc = Lineout(Account'-device-migration.csv','Hostname:IP:status:environment:delivery team:platform:automated:device role:master device:description:Last IBM QEV:Last IBM CBN:Last IBM Privilege Revalidation:Last Customer QEV:Last Customer CBN:Last Customer Privilege Revalidation:connection:ECM Mapping Name')
 /* Only add header if file does not exist, this allows adding to existing file */
   Say 'You will need to remove header before submitting, you should look at the output anyhow'
 end
@@ -48,7 +48,7 @@ If (mefs == 'Y') then do
     invfile = file.k
     rc = stream(invfile,"c","open")
     text = LineIn(invfile,1,1)
-    Parse Var text .'|'.'|'device1'|'Plat'|'.
+    Parse Upper Var text .'|'.'|'device1'|'Plat'|'.
     Parse var device1 device'.'Something
     rc = lineout(invfile)
     devm.k = device
@@ -58,6 +58,7 @@ end
 
 If (ECMQues == 'Y') then do
   servnum = 0
+  rc = stream(ECMFile,"c","open")
   do while Lines(ECMFile)
     servnum = servnum + 1
     newline = LineIn(ECMFile)
@@ -65,6 +66,7 @@ If (ECMQues == 'Y') then do
     hnames.servnum = hname
     IPAs.servnum = IPA
   end
+  rc = stream(ECMFile,"c","close")
 say servnum
 end
 
