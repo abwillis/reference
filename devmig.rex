@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* USA devices migration */
 /* Envisioned/designed/developed by Andy Willis */
-/* Version 1.7 9Feb2018 */
+/* Version 1.8 9Feb2018 */
 
 home = Directory()
 Num = 0
@@ -14,6 +14,19 @@ Say 'Leave Device Name empty and hit enter to finish'
 
 Say 'Account?'
 Parse pull Account
+
+Say 'Will the environment all be the same for all devices? (Y if yes)'
+Pull sEnvironment
+
+Say 'Will the Delivery team all be the same for all devices? (Y if yes)'
+pull sDelT
+
+Say 'Will the Role be the same for all devices? (Y if yes)'
+pull srole
+
+Environment = ''
+DelT = ''
+Role = ''
 
 rc = SysFileTree(Account'-device-migration.csv','exist','FO')
 if (exist.0 = 0) then do 
@@ -76,11 +89,11 @@ Num = Num + 1
 HostName = ''
 IP = ''
 Status = 'MIGRATION'
-Environment = ''
-DelT = ''
+if (sEnvironment <> 'Y') then Environment = ''
+if (sDelT <> 'Y') then DelT = ''
 Platform = ''
 Auto = 'NO' /* Assuming NO for all for now */
-Role = ''
+if (sRole <> 'Y') then Role = ''
 Masdev = ''
 Desc = ''
 LQEV = ''
@@ -136,17 +149,21 @@ Say 'Status - Classification of the device status where the possible entries are
 Pull Status
 */
 
-Say 'Environment - Customer environment name'
-Pull Environment
-do While (Environment == '')
-  Say 'Environment is required:'
+if (Environment == '') then do
+  Say 'Environment - Customer environment name'
   Pull Environment
+  do While (Environment == '')
+    Say 'Environment is required:'
+    Pull Environment
+  end
 end
 
-Say 'Delivery Team - Delivery Team name that carried out the requests for this device'
-do While (DelT == '')
-  Say 'Delivery Team is required'
-  Pull DelT
+if (DelT == '') then do
+  Say 'Delivery Team - Delivery Team name that carried out the requests for this device'
+  do While (DelT == '')
+    Say 'Delivery Team is required'
+    Pull DelT
+  end
 end
 
 if (mefs == 'Y') then do
@@ -178,11 +195,13 @@ Say ' Automatic - Classification if the requests execution will be automatic whe
 Pull Auto
 */
 
-Say 'Role - Name of the role of the device where the possible entries are : STAND ALONE, PRIMARY DOMAIN CONTROLLER (NT4), LDAP MEMBER, CLUSTER MEMBER, SP NODE, BACKUP DOMAIN CONTROLLER (NT4), LDAP, LDAP SERVER, CLUSTER MASTER, SP CONTROL WORKSTATION'
-do While (Role == '')
-  Say 'Role required'
-  Pull Role
-end
+if (Role == '') then do
+  Say 'Role - Name of the role of the device where the possible entries are : STAND ALONE, PRIMARY DOMAIN CONTROLLER (NT4), LDAP MEMBER, CLUSTER MEMBER, SP NODE, BACKUP DOMAIN CONTROLLER (NT4), LDAP, LDAP SERVER, CLUSTER MASTER, SP CONTROL WORKSTATION'
+  do While (Role == '')
+    Say 'Role required'
+    Pull Role
+  end
+end  
 
 Say 'Master device - Name of the master device of this device (case sensitive)'
 Parse Pull MasDev
