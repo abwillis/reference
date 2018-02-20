@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Check ECM against UAT  */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0  14Feb2018 */
+/* Version 1.1  14Feb2018 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -45,11 +45,10 @@ rc = stream(dvcfile,"c","close")
 hostname.0 = b
 status.0 = b
 
-do c = 0 to logical.0
+do c = 1 to logical.0
 check = 0
-  do d = 0 to hostname.0
+  do d = 1 to hostname.0
     if (logical.c == hostname.d) then do
-      check = 1
       if (status.d == 'ON MIGRATION') then rc = lineout(outstatus,hostname.d','status.d)
       if (status.d == 'UNAVAILABLE') then rc = lineout(outstatus,hostname.d','status.d)
       d = hostname.0
@@ -58,9 +57,9 @@ check = 0
   if check = 0 then rc = lineout(outstatus,logical.c',Not in UAT')
 end  
 
-do c = 0 to hostname.0
+do c = 1 to hostname.0
   check = 0
-  do d = 0 to logical.0
+  do d = 1 to logical.0
     if (hostname.c == logical.d) then do
       check = 1
       d = logical.0
