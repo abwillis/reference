@@ -1,11 +1,16 @@
 #! /usr/bin/rexx
 /* Move date from end of mef3 filename to middle where it is expected. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0  17Apr2018 */
+/* Version 1.1  20Apr2018 */
 
 rc = SysLoadFuncs()
 home = directory()
 Parse ARG ACC1
+
+do while(ACC1 == '')
+  say "Enter account"
+  parse pull ACC1
+end
 
 rc = SysFileTree('*.mef3','file','FO')
 direc = Directory()
