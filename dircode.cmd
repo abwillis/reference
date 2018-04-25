@@ -1,5 +1,5 @@
 @REM Create Directories based on account and quarter/year.
-@REM Version 2.7 10Mar2017
+@REM Version 2.8 24Apr2018
 @echo off
 if /I "%1" == "" goto usage
 if /I "%1" == "genpar" goto usage
@@ -15,15 +15,18 @@ cd %1
 if not exist %2 md %2
 if not exist %2\data md %2\data
 if not exist %2\evidence md %2\evidence
-  if not exist %2\extra md %2\extra
+if not exist %2\extra md %2\extra
+if not exist %2\hold md %2\hold
+if not exist %2\rem md %2\rem
+if not exist %2\recon md %2\recon
 if /I "%3" == "" goto skipped
 if not exist %2\csvcur md %2\csvcur
 if not exist %2\csvprev md %2\csvprev
 if not exist %2\mefcur md %2\mefcur
 if not exist %2\mefprev md %2\mefprev
-  if not exist %2\doneprev md %2\doneprev
-  if not exist %2\donecurr md %2\donecurr
-  if not exist %2\delta md %2\delta 
+if not exist %2\doneprev md %2\doneprev
+if not exist %2\donecurr md %2\donecurr
+if not exist %2\delta md %2\delta 
 :skipped
 if /I "%1" == "." goto current 
 cd ..
