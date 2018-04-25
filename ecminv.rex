@@ -1,6 +1,6 @@
 #! /usr/bin/rexx
 /* REXX ECM Inventory cleanup */
-/* Version 1.2 20Feb2018 */
+/* Version 1.3 20Feb2018 */
 /* Envisioned, designed and written by Andy Willis */
 
 rc = SysLoadFuncs()
@@ -41,7 +41,8 @@ rc = SysFileDelete(newfile)
 count = 0
 Do While Lines(csvfile)
   count = count + 1
-  text = LineIn(csvfile)
+  text1 = LineIn(csvfile)
+  text = ChangeStr(',',text1,'')
   Parse Var text drop';'LN';'LNA';'SysID';'Sysstate';'OSFam';'Cat';'Plat';'IP';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'QEVReq';'drop';'QEVdate';'QEVnext';'QEVstat';'CBNReq';'drop';'drop';'CBNDate';'CBNNext';'CBNStat';'PrivReq';'drop';'drop';'PrivDate';'PrivNext';'PrivStat';'drop
   if LN = '' then Parse Var text drop','LN','LNA','SysID','Sysstate','OSFam','Cat','Plat','IP','drop','drop','drop','drop','drop','drop','drop','drop','drop','drop','drop','drop','QEVReq','drop','QEVdate','QEVnext','QEVstat','CBNReq','drop','drop','CBNDate','CBNNext','CBNStat','PrivReq','drop','drop','PrivDate','PrivNext','PrivStat','drop
   if (count >3 ) then do
