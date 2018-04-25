@@ -1,5 +1,5 @@
 @REM Create directories based on account and year.  Creates directories for all 4 quarters.
-@REM Version 2.8 24Apr2018
+@REM Version 2.9 25Apr2018
 @echo off
 if /I "%1" == "" goto usage
 if /I "%1" == "genpar" goto usage
@@ -21,6 +21,7 @@ for %%G IN (1Q%2 2Q%2 3Q%2 4Q%2) do (
   if not exist %2\hold md %2\hold
   if not exist %2\rem md %2\rem
   if not exist %2\recon md %2\recon
+  if not exist %2\reports md %2\reports
 )
 if "%3" == "" goto skipped
 for %%G IN (1Q%2 2Q%2 3Q%2 4Q%2) do (
