@@ -1,6 +1,6 @@
 #! /usr/bin/rexx
 /* REXX ECM Inventory cleanup */
-/* Version 1.5 30Apr2018 */
+/* Version 1.5.1 30Apr2018 */
 /* Envisioned, designed and written by Andy Willis */
 
 rc = SysLoadFuncs()
@@ -47,7 +47,7 @@ Do While Lines(csvfile)
     text = ChangeStr(',',text1,'')
     Parse Var text drop';'LN';'LNA';'SysID';'Sysstate';'OSFam';'Cat';'Plat';'IP';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'drop';'QEVReq';'drop';'QEVdate';'QEVnext';'QEVstat';'CBNReq';'drop';'drop';'CBNDate';'CBNNext';'CBNStat';'PrivReq';'drop';'drop';'PrivDate';'PrivNext';'PrivStat';'drop
     if LN = '' then Parse Var text drop','LN','LNA','SysID','Sysstate','OSFam','Cat','Plat','IP','drop','drop','drop','drop','drop','drop','drop','drop','drop','drop','drop','drop','QEVReq','drop','QEVdate','QEVnext','QEVstat','CBNReq','drop','drop','CBNDate','CBNNext','CBNStat','PrivReq','drop','drop','PrivDate','PrivNext','PrivStat','drop
-    newline = (,LN','LNA','SysID','SysState','OSFam','Cat','Plat','IP','QEVReq','CBNReq','PrivReq','QEVStat','CBNStat','PrivStat','QEVDate','CBNDate','PrivDate','QEVNext','CBNNext','PrivNext',')
+    newline = (LN','LNA','SysID','SysState','OSFam','Cat','Plat','IP','QEVReq','CBNReq','PrivReq','QEVStat','CBNStat','PrivStat','QEVDate','CBNDate','PrivDate','QEVNext','CBNNext','PrivNext',')
 	if (count == 4) then rc = lineout(newfile,newline)
     if (QEVReq == "y") then rc = lineout(newfile,newline)
     else if (CBNReq == "y") then rc = lineout(newfile,newline)
