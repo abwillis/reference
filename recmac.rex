@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Create csv files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.0 13Nov2017 */
+/* Version 2.1 1May2018 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -283,8 +283,8 @@ do j = 1 to DDP.0
 
   If (intermediate.g == '') then do
     q = g
-    if (e % 150 < 1) then f = 1
-    else f = e % 150
+    if (e % 100 < 1) then f = 1
+    else f = e % 100
     do num = 1 to f
       n = n + 1
       intermediate.g = DDP.j
@@ -326,8 +326,8 @@ do j = 1 to DDG.0
 
   If (intermediate.g == '') then do
     q = g
-    if (e % 150 < 1) then f = 1
-    else f = e % 150
+    if (e % 100 < 1) then f = 1
+    else f = e % 100
     do num = 1 to f
       n = n + 1
       intermediate.g = DDG.j
@@ -369,8 +369,8 @@ do j = 1 to DDU.0
 
   If (intermediate.g == '') then do
     q = g
-    if (e % 150 < 1) then f = 1
-    else f = e % 150
+    if (e % 100 < 1) then f = 1
+    else f = e % 100
     do num = 1 to f
       n = n + 1
       intermediate.g = DDU.j
@@ -394,7 +394,7 @@ say "done"
 call finish
 
 outputit:
-/* output sorted uad add ID to csv file */
+/* output sorted uat add ID to csv file */
 do j = 1 to final.0
   rc = lineout(dest,final.j)
 end
