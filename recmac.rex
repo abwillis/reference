@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Create csv files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.1 1May2018 */
+/* Version 2.1.1 1May2018 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -12,9 +12,17 @@ rc = SysFileDelete('UAT_Deviation_Add_Privs.csv')
 rc = SysFileDelete('UAT_Deviation_Add_Users.csv')
 rc = SysFileDelete('UAT_Deviation_Groups.csv')
 
+rc = lineout('Device_Deviation_Groups.csv','Instance,device_id,Hostname,Group Name,platform')
+rc = lineout('Device_Deviation_Privs.csv','Instance,device_id,Hostname,User ID,Privs,platform')
+rc = lineout('Device_Deviation_Users.csv','Instance,device_id,Hostname,User ID,platform')
+rc = lineout('UAT_Deviation_Add_Privs.csv','Instance,device_id,Hostname,User ID,Privs,Justification,platform')
+rc = lineout('UAT_Deviation_Add_Users.csv','Instance,device_id,Hostname,User ID,Type,Icode or SERIAL #,System User,Justification,Update Label? Yes or No,platform,label')
+rc = lineout('UAT_Deviation_Groups.csv','Instance,device_id,Hostname,Group Name,intCodes,Privileged,Description,platform')
+
 Parse ARG devfile reconfile inst1 justif dpeint
 parse lower var inst1 inst
 
+/* Ask for arguments if not provided on command line */
 if (devfile == '') then do
   Say "DVC08 file?"
   Parse Pull devfile
@@ -36,6 +44,7 @@ if (dpeint == '') then do
   pull DPEINT
 end  
 
+/* Read in and parse Device file */
 rc = stream(devfile,"c","open")
 k = 0
 Do While Lines(devfile)
@@ -51,6 +60,7 @@ end
 DeviceID.0 = k
 rc = stream(devfile,"c","close")
 
+/* Read in and Parse Recon file */
 rc = stream(reconfile,"c","open")
 j = 0
 do while Lines(reconfile)
@@ -62,6 +72,7 @@ end
 device.0 = j
 rc = stream(reconfile,"c","close")
 
+/* Load stem variables */
 l = 0
 do i = 1 to DeviceID.0
   do m = 1 to device.0
@@ -84,13 +95,7 @@ end
   obj.0 = l
   src.0 = l 
 
-rc = lineout('Device_Deviation_Groups.csv','Instance,device_id,Hostname,Group Name,platform')
-rc = lineout('Device_Deviation_Privs.csv','Instance,device_id,Hostname,User ID,Privs,platform')
-rc = lineout('Device_Deviation_Users.csv','Instance,device_id,Hostname,User ID,platform')
-rc = lineout('UAT_Deviation_Add_Privs.csv','Instance,device_id,Hostname,User ID,Privs,Justification,platform')
-rc = lineout('UAT_Deviation_Add_Users.csv','Instance,device_id,Hostname,User ID,Type,Icode or SERIAL #,System User,Justification,Update Label? Yes or No,platform,label')
-rc = lineout('UAT_Deviation_Groups.csv','Instance,device_id,Hostname,Group Name,intCodes,Privileged,Description,platform')
-
+/* Initialize count variables to zero */
 u = 0
 v = 0
 w = 0
@@ -104,6 +109,7 @@ DDG.0 = 0
 UDAU.0 = 0
 DDU.0 = 0
 
+/* Do comparisons to load results into appropriate stem variables */
 do n = 1 to obj.0
   ISN = ''
   Type = ''
