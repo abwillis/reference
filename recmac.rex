@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Create csv files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.1.2 2May2018 */
+/* Version 2.1.3 2May2018 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -197,8 +197,8 @@ end
 
 
 say "Begin writing to files"
-/* Sort UAT add Privs by UID  */
 
+/* Sort UAT add Privs by UID  */
 final.0 = UDAP.0
 do k = 1 to final.0
   final.k = ''
@@ -221,8 +221,8 @@ dest = 'UAT_Deviation_Add_Privs.csv'
 call outputit
 
 say "1/6 done"
-/* Sort UAT add groups by group */
 
+/* Sort UAT add groups by group */
 final.0 = UDG.0
 do k = 1 to final.0
   final.k = ''
@@ -245,8 +245,8 @@ dest = 'UAT_Deviation_Groups.csv'
 call outputit
 
 say "1/3 done"
-/* Sort UAT add ID by ID */
 
+/* Sort UAT add ID by ID */
 final.0 = UDAU.0
 do k = 1 to final.0
   final.k = ''
@@ -269,8 +269,8 @@ dest = 'UAT_Deviation_Add_Users.csv'
 call outputit
 
 say "1/2 done"
-/*Sort Device by Device*/
 
+/*Sort Device by Device*/
 intermediate.0 = DDP.0
 final.0 = DDP.0
 do k = 1 to DDP.0
