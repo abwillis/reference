@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Create csv files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.1.1 1May2018 */
+/* Version 2.1.2 2May2018 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -45,6 +45,7 @@ if (dpeint == '') then do
 end  
 
 /* Read in and parse Device file */
+Say "Reading in data."
 rc = stream(devfile,"c","open")
 k = 0
 Do While Lines(devfile)
@@ -110,6 +111,7 @@ UDAU.0 = 0
 DDU.0 = 0
 
 /* Do comparisons to load results into appropriate stem variables */
+Say "Comparing data"
 do n = 1 to obj.0
   ISN = ''
   Type = ''
@@ -293,7 +295,7 @@ do j = 1 to DDP.0
     else f = e % 100
     do num = 1 to f
       n = n + 1
-      intermediate.g = DDP.j
+      intermediate.q = DDP.j
       q = q + 1
     end
   end
@@ -336,7 +338,7 @@ do j = 1 to DDG.0
     else f = e % 100
     do num = 1 to f
       n = n + 1
-      intermediate.g = DDG.j
+      intermediate.q = DDG.j
       q = q + 1
     end
   end
@@ -379,7 +381,7 @@ do j = 1 to DDU.0
     else f = e % 100
     do num = 1 to f
       n = n + 1
-      intermediate.g = DDU.j
+      intermediate.q = DDU.j
       q = q + 1
     end
   end
@@ -404,6 +406,7 @@ outputit:
 do j = 1 to final.0
   rc = lineout(dest,final.j)
 end
+rc = stream(dest,"c","close")
 return
 
 finish:
