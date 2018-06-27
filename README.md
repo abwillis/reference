@@ -41,6 +41,8 @@ emef.rex           -- Find extra mefs, compares mefs in current directory to inv
 
 fixmef.rex         -- Fixes filename and environment (first column of mef3 file)
 
+fixunk.rex         -- Fix unknown or customer labelled IDs 
+
 grpmig.rex         -- creates group bulk migration file (incomplete)
 
 GVM.cmd            -- Launch validatemefs, downloads file to make sure latest and gives list of probable files and paths needed as well as date 30 days ago
