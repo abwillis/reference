@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Create csv files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.1.3 2May2018 */
+/* Version 2.2 27Jun2018 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -50,12 +50,13 @@ rc = stream(devfile,"c","open")
 k = 0
 Do While Lines(devfile)
 
-  dtext = Linein(devfile)
+  dtext1 = Linein(devfile)
+  dtext = ChangeStr('"',dtext1,'')
   cnt = countstr(_SID,dtext)
   if (cnt = 0) then do
     k = k + 1
-    parse var dtext .'|'.'|'.'|'DeviceID.k'|"'hostname.k'"|'.'|'.'|'.'|"'platform.k'"|'.
-    if hostname.k = '' then parse var dtext .'|'.'|'.'|'DeviceID.k'|'hostname.k'|'.'|'.'|'.'|'platform.k'|'.
+    parse var dtext .'|'.'|'.'|'DeviceID.k'|'hostname.k'|'.'|'.'|'.'|'platform.k'|'.
+    if DeviceID.k = '' Then parse var dtext .';'.';'.';'DeviceID.k';'hostname.k';'.';'.';'.';'platform.k';'.
   end
 end
 DeviceID.0 = k
@@ -66,9 +67,10 @@ rc = stream(reconfile,"c","open")
 j = 0
 do while Lines(reconfile)
   j = j + 1
-  rtext = linein(reconfile)
-  parse var rtext .'|"'source.j'"|'.'|'.'|"'device.j'"|'.'|'pltfrm.j'|"'Type.j'"|"'object.j'"|"'privlab.j'"|'request.j
-  if source.j = '' then parse var rtext .'|'source.j'|'.'|'.'|'device.j'|'.'|'.'|'Type.j'|'object.j'|'privlab.j'|'request.j
+  rtext1 = linein(reconfile)
+  rtext = ChangeStr('"',rtext1,'')
+  parse var rtext .'|'source.j'|'.'|'.'|'device.j'|'.'|'.'|'Type.j'|'object.j'|'privlab.j'|'request.j
+  if device.j = '' Then parse var rtext .';'source.j';'.';'.';'device.j';'.';'.';'Type.j';'object.j';'privlab.j';'request.j
 end  
 device.0 = j
 rc = stream(reconfile,"c","close")
@@ -77,7 +79,7 @@ rc = stream(reconfile,"c","close")
 l = 0
 do i = 1 to DeviceID.0
   do m = 1 to device.0
-    if (hostname.i = device.m) then do
+    if (hostname.i == device.m) then do
       l = l + 1
 /* look at adding an if statement here checking platform so that if two hostnames on different platforms happened to exist */
       src.l = source.m
