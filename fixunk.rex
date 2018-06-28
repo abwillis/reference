@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Set labels in unk recon files from ibm or customer recon files */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.0  25Apr2018 */
+/* Version 1.2  28Jun2018 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -117,6 +117,7 @@ drop a b c
 drop words
 drop A1 B1 C1 D1 E1 F1 G1 H1 I1 J1 K1
 
+/* Check unknown against IBM */
 a = 0
 do b = 1 to UA1.0
   match = 0
@@ -136,6 +137,21 @@ L.0 = a
 
 drop a b c
 
+/* Check customer against IBM */
+do b = 1 to CA1.0
+  match = 0
+  do c = 1 to IA1.0
+    if (CD1.b == ID1.c) then do
+      rc = lineout('ibm-label.csv',CA1.b':'CB1.b':'CC1.b':'CD1.b':'CE1.b':'CF1.b':'IG1.c':'CH1.b':'CI1.b':'CJ1.b':'CK1.b':')
+      match = 1
+      c = IA1.0
+    end
+  end
+end
+
+drop a b c
+
+/* Check Customer against unknown */
 do a = 1 to L.0
   b = L.a
   match = 0
