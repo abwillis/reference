@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Sort customer, IBM, and unknown IDs in converted file into separate files based on labels. */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.1  21Sep2017 */
+/* Version 1.2  28Jun2018 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -35,6 +35,7 @@ do while lines(recon)
     call putunk
   end  
   if (A1 == "USR") then call usrparse
+  drop A1 B1 C1 D1 E1 F1 G1 H1 I1 J1 K1 words
 end  
 rc = stream(recon,"c","close")
   
@@ -51,15 +52,18 @@ parse pull account
 return
 
 putcust:
-  rc = lineout(account'-cust-recon.csv',A1':'B1':'C1':'D1':'E1':'F1':'G1':'H1':'I1':'J1':'K1':')
+/*   rc = lineout(account'-cust-recon.csv',A1':'B1':'C1':'D1':'E1':'F1':'G1':'H1':'I1':'J1':'K1':') */
+  rc = lineout(account'-cust-recon.csv',words)
 return
 
 putibm:
-  rc = lineout(account'-ibm-recon.csv',A1':'B1':'C1':'D1':'E1':'F1':'G1':'H1':'I1':'J1':'K1':')
+/*  rc = lineout(account'-ibm-recon.csv',A1':'B1':'C1':'D1':'E1':'F1':'G1':'H1':'I1':'J1':'K1':') */
+rc = lineout(account'-ibm-recon.csv',words)
 return
 
 putunk:
-  rc = lineout(account'-unk-recon.csv',A1':'B1':'C1':'D1':'E1':'F1':'G1':'H1':'I1':'J1':'K1':')
+/*  rc = lineout(account'-unk-recon.csv',A1':'B1':'C1':'D1':'E1':'F1':'G1':'H1':'I1':'J1':'K1':') */
+rc = lineout(account'-unk-recon.csv',words)
 return
 
 /* Below are the current and obsolete but possibly used label types */
