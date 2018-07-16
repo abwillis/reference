@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Create csv files for use with imacros to for reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 2.2 27Jun2018 */
+/* Version 2.3 10Jul2018 */
 
 rc = SysLoadFuncs()
 home = directory()
@@ -10,6 +10,7 @@ rc = SysFileDelete('Device_Deviation_Privs.csv')
 rc = SysFileDelete('Device_Deviation_Users.csv')
 rc = SysFileDelete('UAT_Deviation_Add_Privs.csv')
 rc = SysFileDelete('UAT_Deviation_Add_Users.csv')
+rc = SysFileDelete('UAT_Deviation_Add_Privs_check.csv')
 rc = SysFileDelete('UAT_Deviation_Groups.csv')
 
 rc = lineout('Device_Deviation_Groups.csv','Instance,device_id,Hostname,Group Name,platform')
@@ -18,6 +19,7 @@ rc = lineout('Device_Deviation_Users.csv','Instance,device_id,Hostname,User ID,p
 rc = lineout('UAT_Deviation_Add_Privs.csv','Instance,device_id,Hostname,User ID,Privs,Justification,platform')
 rc = lineout('UAT_Deviation_Add_Users.csv','Instance,device_id,Hostname,User ID,Type,Icode or SERIAL #,System User,Justification,Update Label? Yes or No,platform,label')
 rc = lineout('UAT_Deviation_Groups.csv','Instance,device_id,Hostname,Group Name,intCodes,Privileged,Description,platform')
+rc = lineout('UAT_Deviation_Add_Privs_check.csv','Instance,device_id,Hostname,User ID,Privs,Justification,platform')
 
 Parse ARG devfile reconfile inst1 justif dpeint
 parse lower var inst1 inst
@@ -49,14 +51,15 @@ Say "Reading in data."
 rc = stream(devfile,"c","open")
 k = 0
 Do While Lines(devfile)
-
   dtext1 = Linein(devfile)
   dtext = ChangeStr('"',dtext1,'')
-  cnt = countstr(_SID,dtext)
+  cnt = countstr('_SID',dtext)
+  pipe = countstr('|',dtext)
   if (cnt = 0) then do
     k = k + 1
-    parse var dtext .'|'.'|'.'|'DeviceID.k'|'hostname.k'|'.'|'.'|'.'|'platform.k'|'.
-    if DeviceID.k = '' Then parse var dtext .';'.';'.';'DeviceID.k';'hostname.k';'.';'.';'.';'platform.k';'.
+    /* Using pipe < 3 to make sure a single stray pipe in e.g. the label doesn't look like pipes are in use */
+    if (pipe < 3) then parse var dtext .';'.';'.';'DeviceID.k';'hostname.k';'.';'.';'.';'platform.k';'.
+    else parse var dtext .'|'.'|'.'|'DeviceID.k'|'hostname.k'|'.'|'.'|'.'|'platform.k'|'.
   end
 end
 DeviceID.0 = k
@@ -69,8 +72,10 @@ do while Lines(reconfile)
   j = j + 1
   rtext1 = linein(reconfile)
   rtext = ChangeStr('"',rtext1,'')
-  parse var rtext .'|'source.j'|'.'|'.'|'device.j'|'.'|'.'|'Type.j'|'object.j'|'privlab.j'|'request.j
-  if device.j = '' Then parse var rtext .';'source.j';'.';'.';'device.j';'.';'.';'Type.j';'object.j';'privlab.j';'request.j
+  pipe = countstr('|',rtext)
+  /* Using pipe < 3 to make sure a single stray pipe in e.g. the label doesn't look like pipes are in use */
+  if (pipe < 3) then parse var rtext .';'source.j';'.';'.';'device.j';'.';'.';'Types.j';'object.j';'privlab.j';'request.j
+    else             parse var rtext .'|'source.j'|'.'|'.'|'device.j'|'.'|'.'|'Types.j'|'object.j'|'privlab.j'|'request.j
 end  
 device.0 = j
 rc = stream(reconfile,"c","close")
@@ -83,7 +88,7 @@ do i = 1 to DeviceID.0
       l = l + 1
 /* look at adding an if statement here checking platform so that if two hostnames on different platforms happened to exist */
       src.l = source.m
-      typ.l = Type.m
+      typ.l = Types.m
       obj.l = object.m
       plv.l = privlab.m
       req.l = request.m
@@ -117,16 +122,16 @@ Say "Comparing data"
 do n = 1 to obj.0
   ISN = ''
   Type = ''
-  If req.n = '' then do
+  If (req.n == '') then do
     SELECT
       WHEN typ.n = "Privilege" then do
-        if src.n = "Not in UAT" then  do
+        if (src.n == "Not in UAT") then  do
           u = u + 1
           UDAP.0 = u
           UDAP.u = inst','did.n','hst.n','obj.n','plv.n','justif','plt.n','
-          /* rc = lineout('UAT_Deviation_Add_Privs.csv',inst','did.n','hst.n','obj.n','plv.n','justif','plt.n',') */
+          rc = lineout('UAT_Deviation_Add_Privs_check.csv',inst','did.n','hst.n','obj.n','plv.n','justif','plt.n',')
         end
-        if src.n = "Not in Device" then do
+        if (src.n == "Not in Device") then do
           v = v + 1
           DDP.0 = v
           DDP.v = inst','did.n','hst.n','obj.n','plv.n','plt.n','
@@ -135,13 +140,13 @@ do n = 1 to obj.0
       end
 
       When typ.n = "Group" then do
-        if src.n = "Not in UAT" then do
+        if (src.n == "Not in UAT") then do
           w = w + 1
           UDG.0 = w
           UDG.w = inst','did.n','hst.n','obj.n',,TRUE,Group,'plt.n','
           /* rc = lineout('UAT_Deviation_Groups.csv',inst','did.n','hst.n','obj.n',,TRUE,Group,'plt.n) */
         end
-        if src.n = "Not in Device" then do
+        if (src.n == "Not in Device") then do
           x = x + 1
           DDG.0 = x
           DDG.x = inst','did.n','hst.n','obj.n','plt.n','
@@ -150,7 +155,7 @@ do n = 1 to obj.0
       end
 
       When typ.n = "User ID" then do
-        if src.n = "Not in UAT" then do
+        if (src.n == "Not in UAT") then do
           parse upper var plv.n cntry'/'tid'/'SN'/'.
 /* consider a compare for all types against plv.n and set a variable that adds for each hit and if 
 variable is >1 then mark it as possible mislabel check /C/ /F/ /I/ /E/ etc. */
@@ -197,6 +202,7 @@ variable is >1 then mark it as possible mislabel check /C/ /F/ /I/ /E/ etc. */
   end
 end
 
+say UDAP.0' 'DDP.0' 'UDG.0' 'DDG.0' 'UDAU.0' 'DDU.0
 
 say "Begin writing to files"
 
@@ -206,7 +212,15 @@ do k = 1 to final.0
   final.k = ''
 end
 
+/* sp = 0 */
 do j = 1 to UDAP.0
+final.j = UDAP.J
+if 0 then do
+/*  sp = sp + 1
+  if (sp == 2000) then do
+    say j' of 'UDAP.0' 'j/UDAP.0*100'%'
+    sp = 0
+  end*/
   Parse Upper var UDAP.j .','.','.','UIDa','.
   e = 0
   do k = 1 to UDAP.0
@@ -214,10 +228,19 @@ do j = 1 to UDAP.0
     if UIDa > UIDb then e = e + 1
   end
   n = e + 1
+  tt = n
   do while(final.n <> '')
     n = n + 1
+/*
+    if (n > final.0) then say 'n 'n' j 'j' final.0 'final.0' tt 'tt' final.n 'final.n' e 'e
+    if (n == final.0 + 10) then do
+      call outputit
+      call finish
+    end  
+*/  
   end
   final.n = UDAP.j
+end
 end
 dest = 'UAT_Deviation_Add_Privs.csv'
 call outputit
@@ -255,6 +278,8 @@ do k = 1 to final.0
 end
 
 do j = 1 to UDAU.0
+final.j = UDAU.j
+if 0 then do
   Parse Upper var UDAU.j .','.','.','UIDa','.
   e = 0
   do k = 1 to UDAU.0
@@ -266,6 +291,7 @@ do j = 1 to UDAU.0
     n = n + 1
   end
   final.n = UDAU.j
+end
 end
 dest = 'UAT_Deviation_Add_Users.csv'
 call outputit
