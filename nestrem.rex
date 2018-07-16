@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* Create csv files for use with imacros to for Nested Files reconciliation */
 /* Envisioned, designed and written by Andy Willis */
-/* Version 1.1 6Dec2017 */
+/* Version 1.2 9Jul2018 */
 rc = SysLoadFuncs()
 home = directory()
 
@@ -28,12 +28,13 @@ rc = stream(devfile,"c","open")
 k = 0
 Do While Lines(devfile)
 
-  dtext = Linein(devfile)
+  dtext1 = Linein(devfile)
+  dtext = ChangeStr('"',dtext1,'')
   cnt = countstr(_SID,dtext)
   if (cnt = 0) then do
     k = k + 1
-    parse var dtext .'|'.'|'.'|'DeviceID.k'|"'hostname.k'"|'.'|'.'|'.'|"'platform.k'"|'.
-    if hostname.k = '' then parse var dtext .'|'.'|'.'|'DeviceID.k'|'hostname.k'|'.'|'.'|'.'|'platform.k'|'.
+    parse var dtext .'|'.'|'.'|'DeviceID.k'|'hostname.k'|'.'|'.'|'.'|'platform.k'|'.
+    if DeviceID.k = '' Then parse var dtext .';'.';'.';'DeviceID.k';'hostname.k';'.';'.';'.';'platform.k';'.
   end
 end
 DeviceID.0 = k
