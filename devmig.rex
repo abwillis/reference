@@ -1,7 +1,7 @@
 #! /usr/bin/rexx
 /* USA devices migration */
 /* Envisioned/designed/developed by Andy Willis */
-/* Version 1.8 9Feb2018 */
+/* Version 2.0 14May2018 */
 
 home = Directory()
 Num = 0
@@ -22,7 +22,10 @@ Say 'Will the Delivery team all be the same for all devices? (Y if yes)'
 pull sDelT
 
 Say 'Will the Role be the same for all devices? (Y if yes)'
-pull srole
+pull sRole
+
+Say 'Do you want to fill in the incidentals? (Y if yes)'
+pull sIncidental
 
 Environment = ''
 DelT = ''
@@ -149,23 +152,6 @@ Say 'Status - Classification of the device status where the possible entries are
 Pull Status
 */
 
-if (Environment == '') then do
-  Say 'Environment - Customer environment name'
-  Pull Environment
-  do While (Environment == '')
-    Say 'Environment is required:'
-    Pull Environment
-  end
-end
-
-if (DelT == '') then do
-  Say 'Delivery Team - Delivery Team name that carried out the requests for this device'
-  do While (DelT == '')
-    Say 'Delivery Team is required'
-    Pull DelT
-  end
-end
-
 if (mefs == 'Y') then do
   if (num <= file.0) then do
       Platform = platm.num
@@ -190,6 +176,23 @@ Pull Platform
   end
 end
 
+if (Environment == '') then do
+  Say 'Environment - Customer environment name'
+  Pull Environment
+  do While (Environment == '')
+    Say 'Environment is required:'
+    Pull Environment
+  end
+end
+
+if (DelT == '') then do
+  Say 'Delivery Team - Delivery Team name that carried out the requests for this device'
+  do While (DelT == '')
+    Say 'Delivery Team is required'
+    Pull DelT
+  end
+end
+
 /*
 Say ' Automatic - Classification if the requests execution will be automatic where the possible entries are : YES / NO'
 Pull Auto
@@ -206,26 +209,28 @@ end
 Say 'Master device - Name of the master device of this device (case sensitive)'
 Parse Pull MasDev
 
-Say 'Description - Description of device functionality'
-Parse Pull Desc
+if (sIncidental == 'Y') then do
+  Say 'Description - Description of device functionality'
+  Parse Pull Desc
 
-Say 'Last QEV - Date of last QEV revision using the format : YYYY-MM-DD'
-Parse Pull LQEV
+  Say 'Last QEV - Date of last QEV revision using the format : YYYY-MM-DD'
+  Parse Pull LQEV
 
-Say 'Last CBN - Date of last CBN revision using the format : YYYY-MM-DD'
-Parse Pull LCBN
+  Say 'Last CBN - Date of last CBN revision using the format : YYYY-MM-DD'
+  Parse Pull LCBN
 
-Say 'Last Privi - Date of last Privi revision using the format : YYYY-MM-DD'
-Parse Pull Lpriv
+  Say 'Last Privi - Date of last Privi revision using the format : YYYY-MM-DD'
+  Parse Pull Lpriv
 
-Say 'Last Customer QEV - Date of last QEV revision using the format : YYYY-MM-DD'
-Parse Pull LCQEV
+  Say 'Last Customer QEV - Date of last QEV revision using the format : YYYY-MM-DD'
+  Parse Pull LCQEV
 
-Say 'Last Customer CBN - Date of last CBN revision using the format : YYYY-MM-DD'
-Parse Pull LCCBN
+  Say 'Last Customer CBN - Date of last CBN revision using the format : YYYY-MM-DD'
+  Parse Pull LCCBN
 
-Say 'Last Customer Privilege Revalidation - Date of last Privi revision using the format : YYYY-MM-DD'
-Parse Pull LCpriv
+  Say 'Last Customer Privilege Revalidation - Date of last Privi revision using the format : YYYY-MM-DD'
+  Parse Pull LCpriv
+end
 
 /*
 Say 'Connection - Name of the connection to the device, in the case of manual handheld devices the possible entry is: : DIRECT'
@@ -236,6 +241,7 @@ Pull Connection
 Say 'ECM Mapping Name - Hostname or the instance name of the device that will be send to the ECM. This is an optional field, if you don't input the data, it will use the device name by default. : HOSTNAME / INSTANCE NAME'
 Pull ECMMap
 */
+
 
 fullstuff = Hostname':'IP':'Status':'Environment':'DelT':'Platform':'Auto':'Role':'Masdev':'Desc':'LQEV':'LCBN':'Lpriv':'LCQEV':'LCCBN':'LCpriv':'Connection':'ECMMap
 
