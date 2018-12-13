@@ -1,0 +1,56 @@
+ExComp|S|ibmeagbldp01|Linux|root||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Enabled|27 Jun 2017|root|root,GRP(root),SUDO_root
+ExComp|S|ibmeagbldp01|Linux|bin||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||bin|bin,GRP(bin)
+ExComp|S|ibmeagbldp01|Linux|daemon||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||daemon|daemon,GRP(daemon)
+ExComp|S|ibmeagbldp01|Linux|adm||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||adm|GRP(adm)
+ExComp|S|ibmeagbldp01|Linux|lp||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||lp|GRP(lp)
+ExComp|S|ibmeagbldp01|Linux|sync||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||root|GRP(root)
+ExComp|S|ibmeagbldp01|Linux|shutdown||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||root|GRP(root)
+ExComp|S|ibmeagbldp01|Linux|halt||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||root|GRP(root)
+ExComp|S|ibmeagbldp01|Linux|mail||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||mail|GRP(mail)
+ExComp|S|ibmeagbldp01|Linux|operator||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|SSH-Enabled||root|GRP(root)
+ExComp|S|ibmeagbldp01|Linux|games||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||users|
+ExComp|S|ibmeagbldp01|Linux|ftp||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||ftp|GRP(ftp)
+ExComp|S|ibmeagbldp01|Linux|nobody||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||nobody|nobody,GRP(nobody)
+ExComp|S|ibmeagbldp01|Linux|avahi-autoipd||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||avahi-autoipd|
+ExComp|S|ibmeagbldp01|Linux|dbus||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||dbus|GRP(dbus)
+ExComp|S|ibmeagbldp01|Linux|polkitd||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||polkitd|
+ExComp|S|ibmeagbldp01|Linux|abrt||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||abrt|
+ExComp|S|ibmeagbldp01|Linux|tss||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||tss|GRP(tss)
+ExComp|S|ibmeagbldp01|Linux|unbound||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||unbound|
+ExComp|S|ibmeagbldp01|Linux|colord||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||colord|
+ExComp|S|ibmeagbldp01|Linux|usbmuxd||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||usbmuxd|
+ExComp|S|ibmeagbldp01|Linux|libstoragemgmt||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||libstoragemgmt|
+ExComp|S|ibmeagbldp01|Linux|saslauth||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||saslauth|GRP(saslauth)
+ExComp|S|ibmeagbldp01|Linux|rpc||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||rpc|GRP(rpc)
+ExComp|S|ibmeagbldp01|Linux|rtkit||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||rtkit|
+ExComp|S|ibmeagbldp01|Linux|radvd||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||radvd|GRP(radvd)
+ExComp|S|ibmeagbldp01|Linux|rpcuser||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||rpcuser|GRP(rpcuser)
+ExComp|S|ibmeagbldp01|Linux|nfsnobody||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||nfsnobody|
+ExComp|S|ibmeagbldp01|Linux|ntp||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||ntp|GRP(ntp)
+ExComp|S|ibmeagbldp01|Linux|qemu||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||kvm,qemu|GRP(kvm)
+ExComp|S|ibmeagbldp01|Linux|chrony||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||chrony|
+ExComp|S|ibmeagbldp01|Linux|pulse||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||pulse|
+ExComp|S|ibmeagbldp01|Linux|gdm||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled|9 Nov 2015|gdm|GRP(gdm)
+ExComp|S|ibmeagbldp01|Linux|gnome-initial-setup||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled|9 Nov 2015|gnome-initial-setup|
+ExComp|S|ibmeagbldp01|Linux|avahi||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||avahi|GRP(avahi)
+ExComp|S|ibmeagbldp01|Linux|postfix||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||mail,postfix|GRP(mail,postfix)
+ExComp|S|ibmeagbldp01|Linux|sshd||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||sshd|GRP(sshd)
+ExComp|S|ibmeagbldp01|Linux|tcpdump||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||tcpdump|GRP(tcpdump)
+ExComp|S|ibmeagbldp01|Linux|swhitcom||897/I/847185/IBM/Whitcomb.Seth|Enabled|9 Jun 2017|swhitcom,sysadmin|SUDO_ALIAS(IBM_SA_BAU:%sysadmin)
+ExComp|S|ibmeagbldp01|Linux|gamjim||US/S/*PMUDS1/IBM/XCUSA Disabled IDs UNIX/Gamji, Mrinal/ CR20130204 (JQ) / IN12579158 / Disabled as per UAT Request 246164150  20161104|Disabled|5 Oct 2016|users|
+ExComp|S|ibmeagbldp01|Linux|shalimmr||US/S/*PMUDS1/IBM/XCUSA Disabled IDs UNIX/shalim, Mohammed/Disabled as per UAT Request 274232689 20170216|Disabled||users|
+ExComp|S|ibmeagbldp01|Linux|s-alcip1||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|SSH-Enabled||automata,s-alcip1|SUDO_ALIAS(IBM_AE_BAU:%automata)
+ExComp|S|ibmeagbldp01|Linux|s-alcip2||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|SSH-Enabled||automata,s-alcip2|SUDO_ALIAS(IBM_AE_BAU:%automata)
+ExComp|S|ibmeagbldp01|Linux|sssd||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||sssd|
+ExComp|S|ibmeagbldp01|Linux|systemd-bus-proxy||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||systemd-bus-proxy|
+ExComp|S|ibmeagbldp01|Linux|systemd-network||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||systemd-network|
+ExComp|S|ibmeagbldp01|Linux|geoclue||US/S/*PMIWI1/IBM/XCUSA Unixl Team Unix/AppID|Disabled||geoclue|
+ExComp|S|ibmeagbldp01|Linux|setroubleshoot||897/C///|Disabled||setroubleshoot|
+ExComp|S|ibmeagbldp01|Linux|ambativ||744/E/078286/IBM/Ambati, Venkatamurali|Enabled|27 Jun 2017|sysadmin,ambativ|SUDO_ALIAS(IBM_SA_BAU:%sysadmin)
+ExComp|S|ibmeagbldp01|Linux|mosese1||744/I/05939D/IBM/Moses, Edwin|Disabled||tsm,mosese1|
+ExComp|S|ibmeagbldp01|Linux|mayh1||897/E/C-HLFS/IBM/May, Harrison E.|Disabled||sysadmin,mayh1|SUDO_ALIAS(IBM_SA_BAU:%sysadmin)
+ExComp|S|ibmeagbldp01|Linux|nellurs||744/I/05981H/IBM/Nelluri.Srikanth B|Enabled|5 Jun 2017|idadmin,nellurs|SUDO_ALIAS(IBM_MANIAM_LINUX_BAU:%idadmin)
+ExComp|S|ibmeagbldp01|Linux|shankar1||744/I/02552W/IBM/Shankar, Ravi/CR20160907 (SN)/INC0187707|Enabled||shankar1|
+ExComp|S|ibmeagbldp01|Linux|s-slauto||897/S/*PMIWI1/IBM/XCUSA WINTEL TEAM INTEL/|SSH-Enabled|16 Apr 2017|automata,s-slauto|SUDO_ALIAS(IBM_AE_BAU:%automata)
+ExComp|S|ibmeagbldp01|Linux|s-vmscan||897/C///ExComp_SDM|SSH-Enabled||s-vmscan|
+ExComp|S|ibmeagbldp01|Linux|NOTaRealID||000/V///2017-06-27-10.33.53:FN=./iam_extract_ibm.sh:VER=V9.4.3:CKSUM=3079667642:SUDO=1.8.6p7||-5| -c ExComp#|0
